@@ -49,3 +49,12 @@
     color: #00e6b8;
 }
 /* End Slider */
+
+/* Modify & delete buttons */
+.table tbody button{
+    margin: 0 2px;
+}
+.table{
+    text-align: center;
+}
+/* End Modify & delete buttons */

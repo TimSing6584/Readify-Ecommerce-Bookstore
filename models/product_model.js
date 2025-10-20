@@ -6,7 +6,7 @@ const productSchema = new Schema({
     price: Number,
     discountPercentage: Number,
     stock: Number,
-    images: [String],
+    images: String,
     deleted: Boolean
 })
 // define product model
