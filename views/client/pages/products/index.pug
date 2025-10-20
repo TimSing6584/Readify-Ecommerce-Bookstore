@@ -14,6 +14,7 @@ block main
                         .inner-content
                             h3.inner-title #{item.title}
                             .inner-price-new #{(((100 - item.discountPercentage) * item.price) / 100).toFixed(0)}$
+                            //- Render discount if exist only
                             if item.discountPercentage != 0
                                 .inner-price-old #{item.price}$
                                 .inner-discount -#{item.discountPercentage.toFixed(0)}%
