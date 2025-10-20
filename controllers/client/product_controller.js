@@ -1,4 +1,6 @@
 const Product = require("../../models/product_model.js")
+
+// [GET] /product
 module.exports.index = async (req, res) => {
     const render_product = await Product.find({
         deleted: false,
