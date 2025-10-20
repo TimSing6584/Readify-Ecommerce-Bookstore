@@ -1,3 +1,3 @@
 module.exports.index = (req, res) => {
-    res.send("Here is the dashboard!")
+    res.render("admin/pages/dashboard/index.pug")
 }
