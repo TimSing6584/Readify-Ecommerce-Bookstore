@@ -6,8 +6,15 @@ block main
     .card.mb-3
         .card-header Search and Filter
         .card-body
-            each button in filterButtons
-                button(class=`btn btn-sm ml-1 btn-outline-success ${button.class}` stock=button.stock) #{button.buttonName}
+            .row
+                .col-6
+                    each button in filterButtons
+                        button(class=`btn btn-sm ml-1 btn-outline-success ${button.class}` stock=button.stock) #{button.buttonName}
+                .col-6
+                    form(id="form-search")
+                        .input-group
+                            input(type="text" placeholder="Enter keyword" name="search_key_word" class="form-control" value=last_search_word)
+                            button(class="btn btn-success" type="submit") Search
     table.table.table-hover.table-sm
         thead
             tr

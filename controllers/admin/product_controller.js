@@ -5,12 +5,22 @@ module.exports.index = async (req, res) => {
     let filter = {
         deleted: false
     }
+    // Filter by stock
     if (req.query.stock === "instock"){
         filter.stock = {$gt: 0}
     }
     else if(req.query.stock === "outofstock"){
         filter.stock = {$lte: 0}
     }
+    // End Filter by stock
+
+    // Filter by search keyword:
+    if(req.query.search_key_word){
+        filter.title = {$regex: req.query.search_key_word, $options: "i"}
+    }
+    const last_search_word = req.query.search_key_word ? req.query.search_key_word : ""
+    // End filter by search keyword
+
     // Define filter buttons
     let filterButtons = [
         {
@@ -29,12 +39,14 @@ module.exports.index = async (req, res) => {
             class: req.query.stock === "outofstock" ? "active" : ""
         }
     ]
+    // End Define filter buttons
+
 
     const fileredProducts = await Product.find(filter)
     res.render("admin/pages/products/index.pug", {
         titlePage: "Admin Product Page",
         products: fileredProducts,
-        filterButtons: filterButtons
+        filterButtons: filterButtons,
+        last_search_word: last_search_word
     })
-    // console.log(allProducts)
 }
