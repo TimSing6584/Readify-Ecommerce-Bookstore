@@ -1,5 +1,6 @@
 extends ../../layouts/default.pug
-
+include ../../mixins/filter-stock.pug
+include ../../mixins/search.pug
 block main
     h1 Product Lists
 
@@ -8,13 +9,9 @@ block main
         .card-body
             .row
                 .col-6
-                    each button in filterButtons
-                        button(class=`btn btn-sm ml-1 btn-outline-success ${button.class}` stock=button.stock) #{button.buttonName}
+                    +filter-buttons(filterButtons)
                 .col-6
-                    form(id="form-search")
-                        .input-group
-                            input(type="text" placeholder="Enter keyword" name="search_key_word" class="form-control" value=last_search_word)
-                            button(class="btn btn-success" type="submit") Search
+                    +search(last_search_word)
     table.table.table-hover.table-sm
         thead
             tr

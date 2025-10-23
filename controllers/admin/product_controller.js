@@ -1,5 +1,6 @@
 const Product = require("../../models/product_model.js")
-
+const filterStockHelper = require("../../helpers/filter_stock.js")
+const searchHelper = require("../../helpers/search.js")
 // [GET] /admin/product
 module.exports.index = async (req, res) => {
     let filter = {
@@ -14,32 +15,19 @@ module.exports.index = async (req, res) => {
     }
     // End Filter by stock
 
+    // Define filter buttons
+    // List of buttons we render on the page for client to filter
+    let filterButtons = filterStockHelper(req)
+    // End Define filter buttons
+
     // Filter by search keyword:
-    if(req.query.search_key_word){
-        filter.title = {$regex: req.query.search_key_word, $options: "i"}
+    const last_search_word = searchHelper(req)
+    if(last_search_word){
+        filter.title = {$regex: last_search_word, $options: "i"}
     }
-    const last_search_word = req.query.search_key_word ? req.query.search_key_word : ""
     // End filter by search keyword
 
-    // Define filter buttons
-    let filterButtons = [
-        {
-            buttonName: "All",
-            stock: "",
-            class: req.query.stock === undefined ? "active" : ""
-        },
-        {
-            buttonName: "In stock",
-            stock: "instock",
-            class: req.query.stock === "instock" ? "active" : ""
-        },
-        {
-            buttonName: "Out of stock",
-            stock: "outofstock",
-            class: req.query.stock === "outofstock" ? "active" : ""
-        }
-    ]
-    // End Define filter buttons
+
 
 
     const fileredProducts = await Product.find(filter)
