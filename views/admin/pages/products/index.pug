@@ -18,7 +18,9 @@ block main
                 th N.o
                 th Image
                 th Title
+                th Category
                 th Price
+                th Discount
                 th Stock
                 th Action
         tbody
@@ -33,7 +35,9 @@ block main
                             height="auto"
                         )
                     td #{item.title}
+                    td #{item.category}
                     td #{item.price.toFixed(0)}$
+                    td #{item.discountPercentage.toFixed(0)}%
                     td
                         if item.stock > 0
                             a(href="#" class="badge bg-success") #{item.stock}
