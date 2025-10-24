@@ -11,6 +11,7 @@ if(buttons){
             else{
                 url.searchParams.delete("stock")
                 url.searchParams.delete("search_key_word") // remove any search_key_word
+                // url.searchParams.delete("page") // comeback to first page
             }
             window.location.href = url.href
         })
@@ -36,3 +37,17 @@ if(searchForm){
     })
 }
 // End Search Form (/admin/product)
+
+// Pagination
+const pages = document.querySelectorAll("button[pageNumber]")
+if(pages){
+    let url = new URL(window.location.href)
+    pages.forEach((page) => {
+        page.addEventListener("click", () => {
+            pageNumber = page.getAttribute("pageNumber")
+            url.searchParams.set("page", pageNumber)
+            window.location.href = url.href
+        })
+    })
+}
+// End Pagination

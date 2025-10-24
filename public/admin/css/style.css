@@ -65,7 +65,7 @@
     margin-top: 30px;
 }
 .main .card-body button{
-    margin-right: 3px
+    margin-right: 3px;
 }
 .main .card-body button:hover{
     transform: scale(1.05);
@@ -80,3 +80,4 @@
     color: #fff;
 }
 /* End search and Filter */
+

@@ -13,28 +13,31 @@ module.exports.index = async (req, res) => {
     else if(req.query.stock === "outofstock"){
         filter.stock = {$lte: 0}
     }
-    // End Filter by stock
 
-    // Define filter buttons
-    // List of buttons we render on the page for client to filter
+    // Define filter buttons, list of buttons we render on the page for client to filter
     let filterButtons = filterStockHelper(req)
-    // End Define filter buttons
 
     // Filter by search keyword:
     const last_search_word = searchHelper(req)
     if(last_search_word){
         filter.title = {$regex: last_search_word, $options: "i"}
     }
-    // End filter by search keyword
+
+    // Pagination
+    let pagination = {
+        currentPage: req.query.page ? parseInt(req.query.page) : 1, // default start is page 1
+        limitItems: 4,
+    }
+    const total_products = await Product.countDocuments(filter)
+    pagination.total_pages = Math.ceil(total_products / pagination.limitItems)
 
 
-
-
-    const fileredProducts = await Product.find(filter)
+    const filterProducts = await Product.find(filter).limit(pagination.limitItems).skip((pagination.currentPage - 1) * pagination.limitItems)
     res.render("admin/pages/products/index.pug", {
         titlePage: "Admin Product Page",
-        products: fileredProducts,
+        products: filterProducts,
         filterButtons: filterButtons,
-        last_search_word: last_search_word
+        last_search_word: last_search_word,
+        pagination: pagination
     })
 }
