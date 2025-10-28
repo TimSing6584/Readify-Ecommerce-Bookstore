@@ -51,11 +51,15 @@
 /* End Slider */
 
 /* Modify & delete buttons */
-.table tbody button{
+.table tbody .modify-delete{
     margin: 0 2px;
 }
 .table{
     text-align: center;
+}
+.table tbody .stock-counter{
+    font-size: 20px;
+    /* font-weight: 500; */
 }
 /* End Modify & delete buttons */
 
@@ -81,3 +85,6 @@
 }
 /* End search and Filter */
 
+/* Pagination */
+
+/* End Pagination */

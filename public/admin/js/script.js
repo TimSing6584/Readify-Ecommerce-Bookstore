@@ -11,7 +11,8 @@ if(buttons){
             else{
                 url.searchParams.delete("stock")
                 url.searchParams.delete("search_key_word") // remove any search_key_word
-                // url.searchParams.delete("page") // comeback to first page
+                // url.searchParams.delete("page") //  no comeback to first page
+                // just stay at the current page
             }
             window.location.href = url.href
         })

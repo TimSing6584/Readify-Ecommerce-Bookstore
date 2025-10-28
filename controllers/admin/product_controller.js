@@ -37,3 +37,22 @@ module.exports.index = async (req, res) => {
         pagination: pagination
     })
 }
+
+// [PATCH] /admin/product/change-stock/:current_stock/:counter_value/:id
+module.exports.change_stock = async (req, res) => {
+    const counter_value = req.params.counter_value
+    const product_id = req.params.id
+
+    // find the target product and its current stock value
+    const target_product = await Product.findOne({"_id": product_id})
+    const current_stock = target_product.stock
+    if(counter_value === "decrement"){
+        if(current_stock > 0){
+            await target_product.updateOne({stock: current_stock - 1})
+        }
+    }
+    else{
+        await target_product.updateOne({stock: current_stock + 1})
+    }
+    res.redirect(req.get('referer') || '/admin/product') // referer is the contains the address from which a resource has been requested
+}

@@ -1,5 +1,8 @@
 const express = require('express')
+const methodOverride = require('method-override')
 const app = express()
+// override with POST having ?_method=DELETE
+app.use(methodOverride('_method'))
 // import routes
 const client_route = require("./routes/client/index_route.js")
 const admin_route = require("./routes/admin/index_route.js")

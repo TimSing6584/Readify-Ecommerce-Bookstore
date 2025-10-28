@@ -41,8 +41,14 @@ block main
                     td #{item.price.toFixed(0)}$
                     td #{item.discountPercentage.toFixed(0)}%
                     td
-                        a(href="#" class=` ${item.stock > 0 ? "badge bg-success" : "badge bg-danger"}`) #{item.stock}
+                        button(class="btn bg-transparent stock-counter" counter_value="decrement" data-id=item.id) -
+                        div(class=` ${item.stock > 0 ? "badge bg-success" : "badge bg-danger"}`) #{item.stock}
+                        button(class="btn bg-transparent stock-counter" counter_value="increment" data-id=item.id) +
                     td
-                        button(class="btn btn-warning btn-sm") Modify
-                        button(class="btn btn-danger btn-sm ml-1") Delete
+                        button(class="btn btn-warning btn-sm modify-delete") Modify
+                        button(class="btn btn-danger btn-sm ml-1 modify-delete") Delete
     +pagination(pagination)
+
+    //- script.js is used to handle general interaction (pagination, searching,...), product.js is used to process specific details about products (edit, delete)
+    form(id="change-stock" action="" method="POST" path="/admin/product/change-stock")
+    script(src="/admin/js/product.js")
