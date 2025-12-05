@@ -27,6 +27,7 @@ block main
                 th Title
                 th Category
                 th Price
+                th Display Position
                 th Discount
                 th Stock
                 th Action
@@ -47,6 +48,8 @@ block main
                     td #{item.title}
                     td #{item.category}
                     td #{item.price.toFixed(0)}$
+                    td
+                        input(name="position" value=item.position type="number" style="width: 60px" min="1")
                     td #{item.discountPercentage.toFixed(0)}%
                     td
                         button(class="btn bg-transparent stock-counter" counter_value="decrement" data-id=item.id) -
@@ -57,6 +60,5 @@ block main
                         button(class="btn btn-danger btn-sm ml-1 delete" data-id=item.id) Delete
     +pagination(pagination)
 
-    //- script.js is used to handle general interaction (pagination, searching,...), product.js is used to process specific details about products (edit, delete)
     form(id="change-stock" action="" method="POST" path="/admin/product/change-stock")
     form(id="delete-product" action="" method="POST" path="/admin/product/delete")
