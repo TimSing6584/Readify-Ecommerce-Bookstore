@@ -1,0 +1,41 @@
+extends ../../layouts/default.pug
+block main
+    form.product-form(action="/admin/product/create" method="POST")
+        h2 Create New Product
+
+        .row.g-3
+            .col-md-6
+                label(for="title") Title
+                input(type="text" id="title" name="title" required)
+
+            .col-md-6
+                label(for="price") Price ($)
+                input(type="number" id="price" name="price" min="0" step="0.01" required)
+
+            .col-md-6
+                label(for="discountPercentage") Discount (%)
+                input(type="number" id="discountPercentage" name="discountPercentage" min="0" max="100" required)
+
+            .col-md-6
+                label(for="stock") Stock
+                input(type="number" id="stock" name="stock" min="0" required)
+
+            .col-12
+                label(for="images") Image
+                input(type="text" id="images" name="images" placeholder="https://example.com/image.jpg" required)
+
+            .col-md-6
+                label(for="category") Category
+                input(type="text" id="category" name="category" required)
+
+            .col-md-6
+                label(for="position") Display Position
+                input(type="number" id="position" name="position" min="1" required)
+
+            .col-12
+                label(for="description") Description
+                textarea#description(name="description" rows="4" placeholder="Enter product description...")
+
+        .mt-4.text-end
+            a.btn-reset.text-decoration-none(href="/admin/product") Cancel
+            button.btn-submit(type="submit") Create Product

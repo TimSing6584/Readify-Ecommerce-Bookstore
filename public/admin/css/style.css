@@ -118,3 +118,157 @@ form[form-change-multi]{
     }
 }
 /* End alert */
+
+/*Product Create Form */
+
+.product-form {
+    max-width: 750px;
+    margin: 30px auto;
+    padding: 32px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    border: 1px solid #eee;
+    font-family: "Inter", sans-serif;
+}
+
+
+.product-form h2 {
+    font-weight: 600;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+
+.product-form label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #666;
+    margin-bottom: 4px;
+    display: block;
+}
+
+
+.product-form input {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    transition: 0.2s ease;
+    font-size: 14px;
+}
+
+.product-form input:focus {
+    border-color: #1a73e8;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(26,115,232,0.15);
+}
+
+
+.product-form .btn-submit {
+    background: #1a73e8;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.product-form .btn-submit:hover {
+    background: #155cc0;
+}
+
+.product-form .btn-reset {
+    background: #f2f2f2;
+    color: #555;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    margin-right: 10px;
+    transition: 0.2s;
+}
+
+.product-form .btn-reset:hover {
+    background: #e0e0e0;
+}
+.product-form textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    transition: 0.2s ease;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 120px;
+}
+
+.product-form textarea:focus {
+    border-color: #1a73e8;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(26,115,232,0.15);
+}
+.btn-reset,
+.btn-submit {
+    display: inline-block;
+    text-align: center;
+    min-width: 120px;
+    padding: 10px 20px;  /* match button padding */
+    line-height: 1.5;    /* fix vertical alignment */
+}
+/* End Create Product Form */
+
+/* Pop up product's description */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.popup-box {
+    width: 450px;
+    max-width: 90%;
+    background: #fff;
+    padding: 30px;
+    border-radius: 18px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    animation: popupShow 0.2s ease-out;
+}
+
+@keyframes popupShow {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.close-popup {
+    position: absolute;
+    right: 18px;
+    top: 12px;
+    font-size: 22px;
+    background: none;
+    border: none;
+    color: #333;
+    cursor: pointer;
+}
+.close-popup:hover {
+    color: #000;
+}
+
+
+.popup-box p {
+    margin-top: 10px;
+    color: #555;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* End pop up product's description*/

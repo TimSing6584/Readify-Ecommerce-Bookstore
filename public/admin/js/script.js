@@ -170,3 +170,25 @@ if(showAlert){
     })
 }
 // End Alert Success
+
+// Display products' description
+const descriptionButtons = document.querySelectorAll("button[show-description]")
+if(descriptionButtons){
+    descriptionButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const popUp = button.closest("td").querySelector(".popup-overlay")
+            const closeButton = popUp.querySelector("button.close-popup")
+            popUp.classList.remove("d-none")
+            closeButton.addEventListener("click", () => {
+                popUp.classList.add("d-none")
+            })
+            // close when click at the background
+            popUp.addEventListener("click", (event) => {
+                if (event.target === popUp) {
+                    popUp.classList.add("d-none")
+                }
+            })
+        })
+    })
+}
+// End display products' description

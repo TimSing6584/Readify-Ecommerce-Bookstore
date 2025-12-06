@@ -17,8 +17,11 @@ block main
                     +filter-buttons(filterButtons)
                 .col-6
                     +search(last_search_word)
-
-    +form_change_multi("/admin/product/change-multi?_method=PATCH")
+    .row.d-flex.align-items-center
+        .col-9
+            +form_change_multi("/admin/product/change-multi?_method=PATCH")
+        .col-3.d-flex.justify-content-end
+            a.btn.btn-outline-success(href="/admin/product/create") + Create Product
 
     table.table.table-hover.table-sm
         thead
@@ -28,6 +31,7 @@ block main
                 th N.o
                 th Image
                 th Title
+                th Description
                 th Category
                 th Price
                 th Display Position
@@ -49,6 +53,13 @@ block main
                             height="auto"
                         )
                     td #{item.title}
+                    td
+                        button(class="btn btn-link" show-description) Read
+                        .popup-overlay.d-none
+                            .popup-box
+                                button.close-popup(type="button") ×
+                                h4 Description
+                                p #{item.description}
                     td #{item.category}
                     td #{item.price.toFixed(0)}$
                     td

@@ -5,4 +5,6 @@ router.get("/", controller.index)
 router.patch("/change-stock/:counter_value/:id", controller.changeStock)
 router.patch("/change-multi", controller.changeMulti)
 router.delete("/delete/:id", controller.delete)
+router.get("/create", controller.create_get)
+router.post("/create", controller.create_post)
 module.exports = router

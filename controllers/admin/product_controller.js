@@ -92,3 +92,29 @@ module.exports.delete = async (req, res) => {
     req.flash("success", "You have successfully deleted product")
     res.redirect(req.get('referer') || '/admin/product')
 }
+
+// [GET] /admin/product/create
+module.exports.create_get = (req, res) => {
+    res.render("admin/pages/products/create.pug", {
+        titlePage: "Create New Product"
+    })
+}
+
+// [POST] /admin/product/create
+module.exports.create_post = async (req, res) => {
+    const newProduct = req.body
+    await Product.create({
+        title: newProduct.title,
+        price: newProduct.price,
+        discountPercentage: newProduct.discountPercentage,
+        stock: newProduct.stock,
+        images: newProduct.images,
+        deleted: false,
+        category: newProduct.category,
+        // deleteTime: Date,
+        position: newProduct.position,
+        description: newProduct.description
+    })
+
+    res.redirect('/admin/product')
+}
