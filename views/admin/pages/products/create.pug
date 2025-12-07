@@ -1,6 +1,6 @@
 extends ../../layouts/default.pug
 block main
-    form.product-form(action="/admin/product/create" method="POST")
+    form.product-form(action="/admin/product/create" enctype="multipart/form-data" method="POST")
         h2 Create New Product
 
         .row.g-3
@@ -22,7 +22,7 @@ block main
 
             .col-12
                 label(for="images") Image
-                input(type="text" id="images" name="images" placeholder="https://example.com/image.jpg" required)
+                input(type="file" class="form-control-file" id="images" name="images" accept="image/*" required)
 
             .col-md-6
                 label(for="category") Category
