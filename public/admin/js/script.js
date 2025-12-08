@@ -76,25 +76,27 @@ if(counterButtons.length > 0){
 
 const check_all_box = document.querySelector("input[name=check-all]")
 const product_boxes = document.querySelectorAll("input[name=id]")
-check_all_box.addEventListener("click", () => {
-    if(check_all_box.checked === true){
-        product_boxes.forEach(box => box.checked = true)
-    }
-    else{
-        product_boxes.forEach(box => box.checked = false)
-    }
-})
-product_boxes.forEach(box => {
-    box.addEventListener("click", () => {
-        const check_count = document.querySelectorAll("input[name=id]:checked").length
-        if(check_count === product_boxes.length){
-            check_all_box.checked = true
+if(check_all_box){
+    check_all_box.addEventListener("click", () => {
+        if(check_all_box.checked === true){
+            product_boxes.forEach(box => box.checked = true)
         }
         else{
-            check_all_box.checked = false
+            product_boxes.forEach(box => box.checked = false)
         }
     })
-})
+    product_boxes.forEach(box => {
+        box.addEventListener("click", () => {
+            const check_count = document.querySelectorAll("input[name=id]:checked").length
+            if(check_count === product_boxes.length){
+                check_all_box.checked = true
+            }
+            else{
+                check_all_box.checked = false
+            }
+        })
+    })
+}
 
 // End multiple selection tick boxes
 
@@ -192,3 +194,20 @@ if(descriptionButtons){
     })
 }
 // End display products' description
+
+// Preview image before uploading
+const uploadImgInput = document.querySelector("input[upload-image-input]")
+const uploadImgPreview = document.querySelector("img[upload-image-preview]")
+if(uploadImgInput && uploadImgPreview){
+    uploadImgInput.addEventListener("change", (e) => {
+        const [file] = uploadImgInput.files
+        if (file) {
+            uploadImgPreview.src = URL.createObjectURL(file)
+        }
+        else{
+            uploadImgPreview.src = ""
+        }
+    })
+}
+
+// End preview image before uploading

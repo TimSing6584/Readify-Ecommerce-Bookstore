@@ -22,8 +22,9 @@ block main
 
             .col-12
                 label(for="images") Image
-                input(type="file" class="form-control-file" id="images" name="images" accept="image/*" required)
-
+                input(type="file" class="form-control-file" id="images" name="images" accept="image/*" upload-image-input required)
+                img(src="" upload-image-preview)
+                
             .col-md-6
                 label(for="category") Category
                 input(type="text" id="category" name="category" required)
