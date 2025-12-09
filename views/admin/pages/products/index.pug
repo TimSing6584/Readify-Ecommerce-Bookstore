@@ -8,7 +8,7 @@ block main
     h1 Product Lists
 
     +alert-success("5000")
-
+    +alert-error("5000")
     .card.mb-3
         .card-header Search and Filter
         .card-body
@@ -61,10 +61,10 @@ block main
                                 h4 Description
                                 p #{item.description}
                     td #{item.category}
-                    td #{item.price.toFixed(0)}$
+                    td #{item.price}$
                     td
                         input(name="position" value=item.position type="number" style="width: 60px" min="1")
-                    td #{item.discountPercentage.toFixed(0)}%
+                    td #{item.discountPercentage}%
                     td
                         button(class="btn bg-transparent stock-counter" counter_value="decrement" data-id=item.id) -
                         div(class=` ${item.stock > 0 ? "badge bg-success" : "badge bg-danger"}`) #{item.stock}
@@ -72,7 +72,7 @@ block main
                     td
                         a(
                             class="btn btn-warning btn-sm modify"
-                            href=`/admin/product/edit/${item.id}`
+                            href=`/admin/product/edit/${item.id}?page=${pagination.currentPage}`
                         ) Modify
                         button(class="btn btn-danger btn-sm ml-1 delete" data-id=item.id) Delete
     +pagination(pagination)

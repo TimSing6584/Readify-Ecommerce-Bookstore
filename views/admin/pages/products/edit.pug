@@ -3,7 +3,7 @@ include ../../mixins/alert.pug
 block main
     +alert-error("5000")
     form#edit-form.product-form(
-        action=`/admin/product/edit/${product.id}?_method=PATCH`
+        action=`/admin/product/edit/${product.id}?_method=PATCH&page=${currentPage}`
         enctype="multipart/form-data"
         method="POST"
     )

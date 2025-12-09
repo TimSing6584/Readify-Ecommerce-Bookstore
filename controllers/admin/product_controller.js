@@ -117,24 +117,40 @@ module.exports.create_post = async (req, res) => {
 
 // [GET] /admin/product/edit/:id
 module.exports.edit_get = async (req, res) => {
-    const product_id = req.params.id
-    const product = await Product.findById(product_id)
-    res.render("admin/pages/products/edit.pug", {
-        titlePage: "Edit Product",
-        product: product
-    })
+    const currentPage = req.query.page
+    try{
+        const product_id = req.params.id
+        const product = await Product.findById(product_id)
+        res.render("admin/pages/products/edit.pug", {
+            titlePage: "Edit Product",
+            product: product,
+            currentPage: currentPage
+        })
+    }
+    catch(error){
+        req.flash("error", "Can't access")
+        res.redirect(`/admin/product?page=${currentPage}`)
+    }
 }
 
 // [PATCH] /admin/product/edit/:id
 module.exports.edit_patch = async (req, res) => {
-    const id = req.params.id;
-    const data = req.body; // title, price, stock, etc.
+    const currentPage = req.query.page
+    try{
+        const id = req.params.id;
+        const data = req.body; // title, price, stock, etc.
 
-    if (req.file) {
-        data.images = `/uploads/${req.file.filename}`
+        if (req.file) {
+            data.images = `/uploads/${req.file.filename}`
+        }
+
+        await Product.updateOne({ _id: id }, data);
+        req.flash("success", `You have modified ${data.title}`)
     }
-
-    await Product.updateOne({ _id: id }, data);
-    req.flash("success", `You have modified ${data.title}`)
-    res.redirect("/admin/product")
+    catch(error){
+        req.flash("error", "Can't access")
+    }
+    finally{
+        res.redirect(`/admin/product?page=${currentPage}`)
+    }
 }
