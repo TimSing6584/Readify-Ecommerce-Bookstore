@@ -4,6 +4,7 @@ include ../../mixins/search.pug
 include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug
 include ../../mixins/alert.pug
+include ../../mixins/sorting.pug
 block main
     h1 Product Lists
 
@@ -17,10 +18,13 @@ block main
                     +filter-buttons(filterButtons)
                 .col-6
                     +search(last_search_word)
+
     .row.d-flex.align-items-center
-        .col-9
+        .col-3
             +form_change_multi("/admin/product/change-multi?_method=PATCH")
-        .col-3.d-flex.justify-content-end
+        .col-3
+            +sorting()
+        .col-6.d-flex.justify-content-end
             a.btn.btn-outline-success(
                 href=`/admin/product/create?page=${pagination.currentPage}`
             ) + Create Product

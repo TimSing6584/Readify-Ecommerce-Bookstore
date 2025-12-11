@@ -1,7 +1,7 @@
 mixin form_change_multi(path)
     form(action=path method="POST" form-change-multi)
         //- data submitted to back end will be in the form {type: "delete" || "change-position" , ids: "...."}
-        .d-flex.align-items-start.justify-content-start
+        .d-flex.align-items-start.justify-content-start.gap-1
             .form-group
                 select(name="type" class="form-control")
                     option(value="" disabled selected) --Choose your action--

@@ -28,11 +28,20 @@ module.exports.index = async (req, res) => {
     // Pagination
     const total_products = await Product.countDocuments(filter)
     let pagination = paginationHelper(req, ITEMS_PER_PAGE, total_products) // limit item per page is 4
+    // Sort products by criteria
+    let sortKey = "position" // by default we sort by ascending position
+    let sortValue ="asc"
+    if(req.query.sortKey){
+        sortKey = req.query.sortKey
+    }
+    if(req.query.sortValue){
+        sortValue = req.query.sortValue
+    }
 
     const filterProducts = await Product.find(filter)
                                         .limit(pagination.limitItems)
                                         .skip((pagination.currentPage - 1) * pagination.limitItems)
-                                        .sort({position: 1})
+                                        .sort({[sortKey]: sortValue})
     res.render("admin/pages/products/index.pug", {
         titlePage: "Admin Product Page",
         products: filterProducts,
@@ -112,6 +121,9 @@ module.exports.create_post = async (req, res) => {
 
     if(newProduct.position == ""){
         newProduct.position = totalDocuments + 1
+    }
+    if(newProduct.discountPercentage == ""){
+        newProduct.discountPercentage = 0
     }
     await Product.create(newProduct)
     req.flash("success", "You have successfully created new product")

@@ -22,14 +22,10 @@ block main
                 .info-item
                     strong Stock:
                     span #{product.stock}
-
-                .info-item
-                    strong Position:
-                    span #{product.position}
-
-        .description-section
-            strong Description:
-            p.description-text= product.description
+        if product.description
+            .description-section
+                strong Description:
+                p.description-text= product.description
 
 
     .mt-4.text-end

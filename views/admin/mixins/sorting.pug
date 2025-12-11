@@ -1,0 +1,15 @@
+mixin sorting()
+    div(sort)
+        .d-flex.align-items-center.gap-1
+            select.form-control(
+                name="sort"
+                sort-select
+            )
+                option(value="position-asc") Position Increasing
+                option(value="position-desc") Position Decreasing
+                option(value="price-desc") Price Descreasing
+                option(value="price-asc") Price Increasing
+                option(value="title-asc") Title A-Z
+                option(value="title-desc") Title Z-A
+
+            button.btn.btn-danger(sort-clear) Clear
