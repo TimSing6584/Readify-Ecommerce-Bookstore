@@ -1,0 +1,21 @@
+<svg width="400" height="150" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon: Stylized Open Book -->
+  <g transform="translate(20, 30)">
+    <!-- Left Page/Base -->
+    <rect x="0" y="10" width="40" height="60" rx="5" fill="#C84C00" transform="skewY(5)"/>
+    <!-- Right Page/Top -->
+    <rect x="35" y="0" width="40" height="60" rx="5" fill="#C84C00" opacity="0.8" transform="skewY(-5)"/>
+    <!-- Spine/Detail -->
+    <rect x="38" y="0" width="4" height="70" fill="#A0173B"/>
+  </g>
+
+  <!-- Brand Name: READIFY -->
+  <text x="110" y="65" font-family="Georgia, serif" font-size="50" font-weight="bold" fill="#A0173B">
+    READIFY
+  </text>
+
+  <!-- Slogan -->
+  <text x="255" y="110" text-anchor="middle" font-family="Lato, sans-serif" font-size="24" fill="#C84C00" opacity="0.7">
+    Every book starts a journey
+  </text>
+</svg>

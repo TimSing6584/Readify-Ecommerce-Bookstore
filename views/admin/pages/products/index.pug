@@ -5,8 +5,10 @@ include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug
 include ../../mixins/alert.pug
 include ../../mixins/sorting.pug
+block style
+    link(href="/admin/css/product.css" rel="stylesheet")
 block main
-    h1 Product Lists
+    h1 Product List
 
     +alert-success("5000")
     +alert-error("5000")
@@ -37,7 +39,7 @@ block main
                 th N.o
                 th Image
                 th Title
-                th Description
+                //- th Description
                 th Category
                 th Price
                 th Position
@@ -58,14 +60,14 @@ block main
                             width="100px"
                             height="100px"
                         )
-                    td #{item.title}
-                    td
-                        button(class="btn btn-link" show-description) Read
-                        .popup-overlay.d-none
-                            .popup-box
-                                button.close-popup(type="button") ×
-                                h4 Description
-                                p #{item.description}
+                    td.title-column #{item.title}
+                    //- td
+                    //-     button(class="btn btn-link" show-description) Read
+                    //-     .popup-overlay.d-none
+                    //-         .popup-box
+                    //-             button.close-popup(type="button") ×
+                    //-             h4 Description
+                    //-             p #{item.description}
                     td #{item.category}
                     td #{item.price}$
                     td
@@ -89,3 +91,6 @@ block main
 
     form(id="change-stock" action="" method="POST" path="/admin/product/change-stock")
     form(id="delete-product" action="" method="POST" path="/admin/product/delete")
+
+block script
+    script(src="/admin/js/product.js")

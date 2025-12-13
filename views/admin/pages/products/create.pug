@@ -1,5 +1,7 @@
 extends ../../layouts/default.pug
 include ../../mixins/alert.pug
+block style
+    link(href="/admin/css/product.css" rel="stylesheet")
 block main
     +alert-error("5000")
     form#create-form.product-form(
@@ -90,3 +92,5 @@ block main
                 href=`/admin/product?page=${currentPage}`
             ) Cancel
             button.btn-submit(type="submit") Create Product
+block script
+    script(src="/admin/js/product.js")

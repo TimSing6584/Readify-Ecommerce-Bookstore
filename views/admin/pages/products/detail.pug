@@ -1,4 +1,6 @@
 extends ../../layouts/default.pug
+block style
+    link(href="/admin/css/product.css" rel="stylesheet")
 block main
     h2 Product Details
         .product-detail
@@ -37,3 +39,5 @@ block main
         a.btn.btn-secondary(href=`/admin/product?page=${currentPage}`) Back
         a.btn.btn-primary(href=`/admin/product/edit/${product.id}`) Modify
 
+block script
+    script(src="/admin/js/product.js")
