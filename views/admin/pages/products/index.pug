@@ -5,6 +5,8 @@ include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug
 include ../../mixins/alert.pug
 include ../../mixins/sorting.pug
+include ../../mixins/delete_item.pug
+
 block style
     link(href="/admin/css/product.css" rel="stylesheet")
 block main
@@ -86,11 +88,15 @@ block main
                             class="btn btn-warning btn-sm modify"
                             href=`/admin/product/edit/${item.id}?page=${pagination.currentPage}`
                         ) Modify
-                        button(class="btn btn-danger btn-sm ml-1 delete" data-id=item.id) Delete
+                        button(
+                            class="btn btn-danger btn-sm ml-1 delete"
+                            data-id=item.id
+                            delete-product
+                        ) Delete
     +pagination(pagination)
 
     form(id="change-stock" action="" method="POST" path="/admin/product/change-stock")
-    form(id="delete-product" action="" method="POST" path="/admin/product/delete")
-
+    //- form(id="delete-product" action="" method="POST" path="/admin/product/delete")
+    +delete_item("product")
 block script
     script(src="/admin/js/product.js")

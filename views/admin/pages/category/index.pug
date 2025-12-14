@@ -1,9 +1,16 @@
 extends ../../layouts/default.pug
 include ../../mixins/pagination.pug
+include ../../mixins/alert.pug
+include ../../mixins/delete_item.pug
+
 block style
     link(href="/admin/css/category.css" rel="stylesheet")
 block main
     h1 Product Category
+
+    +alert-success("5000")
+    +alert-error("5000")
+
     table.table.table-hover.table-sm
         thead
             tr
@@ -20,11 +27,18 @@ block main
                     td #{item.quantity}
                     td
                         a(
-                            class="btn btn-warning btn-sm modify"
+                            class="btn btn-warning btn-sm"
                             href=`/admin/category/edit/${item.id}`
+                            modify-category
+
                         ) Modify
                         //- href=`/admin/category/edit/${item.id}?page=${pagination.currentPage}`
-                        button(class="btn btn-danger btn-sm ml-1 delete" data-id=item.id) Delete
+                        button(
+                            class="btn btn-danger btn-sm ml-1 delete"
+                            data-id=item.id
+                            delete-category
+                        ) Delete
     //- +pagination(pagination)
+    +delete_item("category")
 block script
     script(src="/admin/js/category.js")

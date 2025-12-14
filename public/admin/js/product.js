@@ -21,38 +21,6 @@ if(buttons){
 // End Filter Button By Stock (/admin/product)
 
 
-// Search Form (/admin/product)
-const searchForm = document.querySelector("#form-search")
-if(searchForm){
-    let url = new URL(window.location.href)
-    searchForm.addEventListener("submit", event => {
-        event.preventDefault() // prevent page reload (can lose data of the filter by stock before)
-        const keyword = event.target.elements.search_key_word.value
-        if(keyword){
-            url.searchParams.set("search_key_word", keyword)
-        }
-        else{
-            url.searchParams.delete("search_key_word")
-        }
-        window.location.href = url.href
-    })
-}
-// End Search Form (/admin/product)
-
-// Pagination
-const pages = document.querySelectorAll("button[pageNumber]")
-if(pages){
-    let url = new URL(window.location.href)
-    pages.forEach((page) => {
-        page.addEventListener("click", () => {
-            pageNumber = page.getAttribute("pageNumber")
-            url.searchParams.set("page", pageNumber)
-            window.location.href = url.href
-        })
-    })
-}
-// End Pagination
-
 // Increment/Decrement Stock Value
 const counterButtons = document.querySelectorAll(".stock-counter")
 if(counterButtons.length > 0){
@@ -72,8 +40,8 @@ if(counterButtons.length > 0){
 }
 // End increment/Decrement Stock Value
 
-// Multiple Selection Tick Boxes
 
+// Multiple Selection Tick Boxes
 const check_all_box = document.querySelector("input[name=check-all]")
 const product_boxes = document.querySelectorAll("input[name=id]")
 if(check_all_box){
@@ -97,11 +65,10 @@ if(check_all_box){
         })
     })
 }
-
 // End multiple selection tick boxes
 
 // Form change-multi
-const formMulti = document.querySelector("form[form-change-multi")
+const formMulti = document.querySelector("form[form-change-multi]")
 if(formMulti){
     // Retreive the ids of all checked boxes in an array
     const idsInput = document.querySelector("input[name=ids]") // an imaginary input form to store the ids of selected products
@@ -142,57 +109,27 @@ if(formMulti){
 }
 // End form change-multi
 
-// Delete product
-const deleteButtons = document.querySelectorAll("button.delete")
-
-if(deleteButtons){
-    deleteButtons.forEach((button) => {
-        const deleteForm = document.querySelector("form#delete-product")
-        button.addEventListener("click", () => {
-            if(confirm("Are you sure to delete?")){
-                const product_id = button.getAttribute("data-id")
-                deleteForm.setAttribute("action", deleteForm.getAttribute("path") + `/${product_id}?_method=DELETE`)
-                deleteForm.submit()
-            }
-        })
-    })
-}
-// End delete product
-
-// Alert Success
-const showAlert = document.querySelector("[show-alert]")
-if(showAlert){
-    const displayTime = parseInt(showAlert.getAttribute("data-time"))
-    setTimeout(() => {
-        showAlert.classList.add("alert-hidden")
-    }, displayTime)
-    const closeButton = document.querySelector("button[close-alert]")
-    closeButton.addEventListener("click", () => {
-        showAlert.classList.add("alert-hidden")
-    })
-}
-// End Alert Success
 
 // Display products' description
-const descriptionButtons = document.querySelectorAll("button[show-description]")
-if(descriptionButtons){
-    descriptionButtons.forEach(button => {
-        button.addEventListener("click", () => {
-            const popUp = button.closest("td").querySelector(".popup-overlay")
-            const closeButton = popUp.querySelector("button.close-popup")
-            popUp.classList.remove("d-none")
-            closeButton.addEventListener("click", () => {
-                popUp.classList.add("d-none")
-            })
-            // close when click at the background
-            popUp.addEventListener("click", (event) => {
-                if (event.target === popUp) {
-                    popUp.classList.add("d-none")
-                }
-            })
-        })
-    })
-}
+// const descriptionButtons = document.querySelectorAll("button[show-description]")
+// if(descriptionButtons){
+//     descriptionButtons.forEach(button => {
+//         button.addEventListener("click", () => {
+//             const popUp = button.closest("td").querySelector(".popup-overlay")
+//             const closeButton = popUp.querySelector("button.close-popup")
+//             popUp.classList.remove("d-none")
+//             closeButton.addEventListener("click", () => {
+//                 popUp.classList.add("d-none")
+//             })
+//             // close when click at the background
+//             popUp.addEventListener("click", (event) => {
+//                 if (event.target === popUp) {
+//                     popUp.classList.add("d-none")
+//                 }
+//             })
+//         })
+//     })
+// }
 // End display products' description
 
 // Preview image before uploading
@@ -211,35 +148,4 @@ if(uploadImgInput && uploadImgPreview){
 }
 
 // End preview image before uploading
-
-
-// Sort products by criteria
-const sortDiv = document.querySelector("[sort]")
-if(sortDiv){
-    let url = new URL(window.location.href)
-    const sortSelect = sortDiv.querySelector("[sort-select]")
-    const sortClear = sortDiv.querySelector("[sort-clear]")
-    // Set URL according to choosen criteria
-    sortSelect.addEventListener("change", (event) => {
-        const [sortKey, sortValue] = event.target.value.split("-")
-        url.searchParams.set("sortKey", sortKey)
-        url.searchParams.set("sortValue", sortValue)
-        window.location.href = url.href
-    })
-    // Clear options
-    sortClear.addEventListener("click", () => {
-        url.searchParams.delete("sortKey")
-        url.searchParams.delete("sortValue")
-        window.location.href = url.href
-    })
-    // Display the choosen option value
-    const sortKey = url.searchParams.get("sortKey")
-    const sortValue = url.searchParams.get("sortValue")
-    if(sortKey && sortValue){
-        const optionSelected = sortSelect.querySelector(`option[value="${sortKey}-${sortValue}"]`)
-        optionSelected.selected = true
-    }
-}
-
-// End sort product by criteria
 

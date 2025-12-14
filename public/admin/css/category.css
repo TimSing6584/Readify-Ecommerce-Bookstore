@@ -2,3 +2,119 @@ h1{
     margin-bottom: 50px;
 }
 
+/* Action buttons */
+a[modify-category], button[delete-category]{
+    margin: 2px
+}
+
+/* End action buttons */
+
+/* Edit category */
+
+.category-edit {
+    max-width: 520px;
+    margin: 40px auto;
+    padding: 28px 32px;
+    background: #ffffff;
+    border-radius: 14px;
+    border: 1px solid #eee;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+.category-edit h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #222;
+}
+
+/* Form */
+.category-edit .form-group {
+    margin-bottom: 18px;
+}
+
+.category-edit label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.category-edit input {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    transition: 0.2s ease;
+}
+
+.category-edit input:focus {
+    border-color: #1a73e8;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(26,115,232,0.15);
+}
+
+
+.category-edit .btn-submit {
+    background: #1a73e8;
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-right: 8px;
+    transition: 0.2s;
+}
+
+.category-edit .btn-submit:hover {
+    background: #155cc0;
+}
+
+.category-edit .btn-cancel {
+    background: #f2f2f2;
+    color: #555;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.category-edit .btn-cancel:hover {
+    background: #e0e0e0;
+}
+
+.category-edit hr {
+    margin: 26px 0 18px;
+    border: none;
+    border-top: 1px solid #eee;
+}
+
+.category-edit h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.category-hint {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.category-hint li {
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    background: #fafafa;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #555;
+    border: 1px solid #eee;
+}
+/* End edit category */

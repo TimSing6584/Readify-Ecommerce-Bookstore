@@ -4,6 +4,7 @@ const filterStockHelper = require("../../helpers/filter_stock.js")
 const searchHelper = require("../../helpers/search.js")
 const paginationHelper = require("../../helpers/pagination.js")
 const { ITEMS_PER_PAGE } = require("../../config/pagination.js")
+
 // [GET] /admin/product
 module.exports.index = async (req, res) => {
     let filter = {
@@ -45,7 +46,7 @@ module.exports.index = async (req, res) => {
                                         .sort({[sortKey]: sortValue})
                                         .populate("category")
     res.render("admin/pages/products/index.pug", {
-        titlePage: "Admin Product Page",
+        titlePage: "Admin Product List",
         products: filterProducts,
         filterButtons: filterButtons,
         last_search_word: last_search_word,
@@ -72,6 +73,7 @@ module.exports.changeStock = async (req, res) => {
     req.flash("success", "You have successfully changed stock number")
     res.redirect(req.get('referer') || '/admin/product') // referer is the contains the address from which a resource has been requested
 }
+
 // [PATCH] /admin/product/change-multi
 module.exports.changeMulti = async (req, res) => {
     // back end receives data from form submission in req.body
