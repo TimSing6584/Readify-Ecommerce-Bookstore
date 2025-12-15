@@ -1,4 +1,6 @@
 @import url("./helpers/alert.css");
+@import url("./helpers/search_form.css");
+
 /* Header */
 .header{
     background: #202020;

@@ -6,8 +6,8 @@ h1{
 a[modify-category], button[delete-category]{
     margin: 2px
 }
-
 /* End action buttons */
+
 
 /* Edit category */
 
@@ -125,3 +125,10 @@ a[create-category]{
     margin-top: 20px
 }
 /* End create new category */
+
+/* Search Form */
+/* #form-search {
+    display: flex;
+} */
+
+/* End search form */

@@ -1,0 +1,20 @@
+/* Search and Filter */
+.main .card.mb-3{
+    margin-top: 30px;
+}
+#form-search button{
+    margin-right: 1.9px;
+}
+#form-search button:hover{
+    transform: scale(1.05);
+    background-color: transparent;
+    border-color: #198754;
+    color: #198754
+}
+#form-search button.active:hover{
+    transform: scale(1.05);
+    background-color: #198754;
+    border-color: #198754;
+    color: #fff;
+}
+/* End search and Filter */

@@ -2,6 +2,7 @@ extends ../../layouts/default.pug
 include ../../mixins/pagination.pug
 include ../../mixins/alert.pug
 include ../../mixins/delete_item.pug
+include ../../mixins/search.pug
 
 block style
     link(href="/admin/css/category.css" rel="stylesheet")
@@ -10,10 +11,14 @@ block main
 
     +alert-success("5000")
     +alert-error("5000")
-    a.btn.btn-outline-success(
-        create-category
-        href=`/admin/category/create`
-    ) + New Category
+    .row.align-items-center
+        .col-8.d-flex.align-items-center
+            a.btn.btn-outline-success(
+                create-category
+                href=`/admin/category/create`
+            ) + New Category
+        .col-4.d-flex.justify-content-end.align-items-center
+            +search(last_search_word)
     table.table.table-hover.table-sm
         thead
             tr

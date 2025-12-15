@@ -1,10 +1,19 @@
 const Category = require("../../models/category_model.js")
 const Product = require("../../models/product_model.js")
-
+const searchHelper = require("../../helpers/search.js")
 
 // [GET] /admin/category
 module.exports.index = async (req, res) => {
-    const categories = await Category.find({deleted: false}).lean()
+    let query = {
+        deleted: false
+    }
+    // Filter by search keyword:
+    const last_search_word = searchHelper(req)
+    if(last_search_word){
+        query.name = {$regex: last_search_word, $options: "i"}
+    }
+
+    const categories = await Category.find(query).lean()
     // lean() converts to plain JS object
     // Count how many products have this category
     for(let i = 0; i < categories.length; i ++){
@@ -17,7 +26,8 @@ module.exports.index = async (req, res) => {
     }
     res.render("admin/pages/category/index.pug", {
         titlePage: "Admin Product Category",
-        categories: categories
+        categories: categories,
+        last_search_word: last_search_word
     })
 }
 
