@@ -1,3 +1,11 @@
+/* Filter Stock Button */
+button[stock]{
+    margin-right: 5px;
+    height: 100%
+}
+/*  End Filter Stock Button */
+
+
 /* Title column of product */
 .table .title-column {
     max-width: 150px;

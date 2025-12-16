@@ -1,0 +1,43 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/delete_item.pug
+
+block style
+    link(href="/admin/css/role.css" rel="stylesheet")
+block main
+    h1 Roles Management
+
+    +alert-success("5000")
+    +alert-error("5000")
+    a.btn.btn-outline-success(
+        create-role
+        href=`/admin/role/create`
+    ) + New Role
+    table.table.table-hover.table-sm
+        thead
+            tr
+                th N.o
+                th Role
+                th Short Desciption
+                th Action
+        tbody
+            each item, index in roles
+                tr
+                    td #{index + 1}
+                    td #{item.name}
+                    td #{item.description}
+                    td
+                        a(
+                            class="btn btn-warning btn-sm"
+                            href=`/admin/role/edit/${item.id}`
+                            modify-role
+
+                        ) Modify
+                        button(
+                            class="btn btn-danger btn-sm ml-1 delete"
+                            data-id=item.id
+                            delete-role
+                        ) Delete
+    +delete_item("role")
+block script
+    script(src="/admin/js/role.js")

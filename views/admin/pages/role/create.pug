@@ -1,0 +1,39 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+block style
+    link(href="/admin/css/role.css" rel="stylesheet")
+block main
+    .role-edit
+        h2 Create Role
+        +alert-error("5000")
+        form(
+            action=`/admin/role/create`
+            method="POST"
+        )
+            .form-group
+                label(for="name") Role Name
+                input(
+                    type="text"
+                    id="name"
+                    name="name"
+                    value=""
+                    required
+                )
+                label(for="description") Short Description
+                input(
+                    type="text"
+                    id="description"
+                    name="description"
+                    value=""
+                )
+            button.btn-submit(type="submit") Save Changes
+            a.btn-cancel(href="/admin/role") Cancel
+
+        if all_roles.length
+            hr
+            h4 Existing Categories
+            ul.role-hint
+                each c in all_roles
+                    li= c.name
+block script
+    script(src="/admin/js/role.js")
