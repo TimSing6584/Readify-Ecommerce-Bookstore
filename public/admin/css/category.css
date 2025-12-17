@@ -1,14 +1,46 @@
-h1{
-    margin-bottom: 50px;
+h1 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #111827;
 }
-table{
+
+table {
     text-align: center;
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
 }
+
+.table thead th {
+    background: #f3f4f6;
+    font-weight: 600;
+    font-size: 14px;
+    color: #374151;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.table tbody td {
+    font-size: 14px;
+    color: #1f2933;
+    vertical-align: middle;
+    border-top: 1px solid #f1f5f9;
+}
+
+.table-hover tbody tr:hover {
+    background: #f9fafb;
+}
+
 /* Action buttons */
-a[modify-category], button[delete-category]{
-    margin: 2px
+a[modify-category],
+button[delete-category] {
+    margin: 2px 4px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
 }
 /* End action buttons */
+
 
 
 /* Edit category */
@@ -31,7 +63,6 @@ a[modify-category], button[delete-category]{
     color: #222;
 }
 
-/* Form */
 .category-edit .form-group {
     margin-bottom: 18px;
 }

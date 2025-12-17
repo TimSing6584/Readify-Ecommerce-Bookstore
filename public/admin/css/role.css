@@ -1,14 +1,52 @@
 /* Page layout */
-a[create-role]{
-    margin: 55px 0 30px 0
+h1 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #111827;
 }
-a[modify-role], button[delete-role]{
-    margin-right: 3px
+
+a[create-role] {
+    margin: 40px 0 24px 0;
+    border-radius: 10px;
+    font-weight: 500;
 }
-table.role-mamagement{
+
+table.role-mamagement {
     text-align: center;
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.table.role-mamagement thead th {
+    background: #f3f4f6;
+    font-weight: 600;
+    font-size: 14px;
+    color: #374151;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.table.role-mamagement tbody td {
+    font-size: 14px;
+    color: #1f2933;
+    vertical-align: middle;
+    border-top: 1px solid #f1f5f9;
+}
+
+.table-hover tbody tr:hover {
+    background: #f9fafb;
+}
+
+a[modify-role],
+button[delete-role] {
+    margin-right: 4px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
 }
 /* End Page Layout */
+
 
 /* Edit role */
 .role-edit {
