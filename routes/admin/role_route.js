@@ -16,4 +16,6 @@ router.post(
     create_role_validator.create_role,
     controller.create_post
 )
+router.get("/permission", controller.permission_get)
+router.patch("/permission", controller.permission_patch)
 module.exports = router

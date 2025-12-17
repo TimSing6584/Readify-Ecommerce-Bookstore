@@ -65,3 +65,22 @@ module.exports.delete = async (req, res) => {
         res.redirect('/admin/role')
     }
 }
+
+// [GET] /admin/role/permission
+module.exports.permission_get = async (req, res) => {
+    const records = await Role.find({deleted: false})
+    res.render("admin/pages/role/permission.pug", {
+        titlePage: "Permission Management",
+        records: records
+    })
+}
+
+// [PATCH] /admin/role/permission
+module.exports.permission_patch = async (req, res) => {
+    const permissions = JSON.parse(req.body.permissions)
+    for(let item of permissions){
+        await Role.updateOne({_id : item.id}, {permissions: item.permissions})
+    }
+    req.flash("success", "You have successfully updated role permissions")
+    res.redirect("/admin/role/permission")
+}

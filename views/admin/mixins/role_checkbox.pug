@@ -1,0 +1,7 @@
+mixin role_checkbox(records, data_name)
+    each role, index in records
+        td.text-center
+            input(
+                type="checkbox"
+                checked=records[index].permissions.includes(data_name)
+            )

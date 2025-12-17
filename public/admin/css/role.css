@@ -5,6 +5,9 @@ a[create-role]{
 a[modify-role], button[delete-role]{
     margin-right: 3px
 }
+table.role-mamagement{
+    text-align: center;
+}
 /* End Page Layout */
 
 /* Edit role */
@@ -116,3 +119,79 @@ a[modify-role], button[delete-role]{
     border: 1px solid #eee;
 }
 /* End edit role */
+
+/* Permission page */
+[button-submit] {
+    padding: 6px 18px;
+}
+
+table.permission {
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+table.permission thead th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 13px;
+    color: #495057;
+    border-bottom: 2px solid #dee2e6;
+}
+
+table.permission tbody td:first-child {
+    font-weight: 500;
+    color: #212529;
+}
+
+table.permission tbody tr td b {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0d6efd;
+    text-transform: uppercase;
+}
+
+table.permission tbody tr td[colspan] {
+    background-color: #f1f3f5;
+    padding: 10px 14px;
+}
+
+table.permission tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+table.permission tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+table.permission input[type="checkbox"] {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+table.permission td.text-center {
+    vertical-align: middle;
+}
+
+table.permission td,
+table.permission th {
+    padding: 10px 14px;
+}
+
+button[button-submit] {
+    border-radius: 6px;
+    padding: 6px 16px;
+    font-weight: 500;
+}
+
+div[update-permission]{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin: 25px 10px;
+}
+
+/* End permission page */
