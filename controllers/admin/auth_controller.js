@@ -5,9 +5,15 @@ const jwt = require('jsonwebtoken')
 
 // [GET] /admin/auth/login
 module.exports.login_get = async (req, res) => {
-    res.render("admin/pages/auth/login.pug", {
-        titlePage: "Login Page"
-    })
+    try{
+        jwt.verify(req.cookies.token, process.env.JWT_SECRET_KEY)
+        res.redirect("/admin")
+    }
+    catch{
+        res.render("admin/pages/auth/login.pug", {
+            titlePage: "Login Page"
+        })
+    }
 }
 // [POST] /admin/auth/login
 module.exports.login_post = async (req, res, next) => {
