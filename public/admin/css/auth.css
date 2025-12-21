@@ -86,4 +86,17 @@
 #form-login .alert {
     margin-bottom: 20px;
 }
+#form-login .form-login-back {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #4f46e5;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+#form-login .form-login-back:hover {
+    color: #3730a3;
+    text-decoration: underline;
+}
 /* End login form */

@@ -27,9 +27,15 @@ module.exports.create_get = async (req, res) => {
 }
 // [POST] /admin/role/create
 module.exports.create_post = async (req, res) => {
-    await Role.create(req.body)
-    req.flash("success", "You have successfully created new role")
-    res.redirect(`/admin/role`)
+    const permissions = res.locals.role.permissions
+    if(permissions.includes("role-create")){
+        await Role.create(req.body)
+        req.flash("success", "You have successfully created new role")
+        res.redirect(`/admin/role`)
+    }
+    else{
+        return
+    }
 }
 
 // [GET] /admin/role/edit/:id
@@ -47,33 +53,45 @@ module.exports.edit_get = async (req, res) => {
 }
 // [PATCH] /admin/role/edit/:id
 module.exports.edit_patch = async (req, res) => {
-    // check if the updated name is duplicated
-    await Role.updateOne({_id: req.params.id}, {
-        name: req.body.name.trim(),
-        description: req.body.description.trim()
-    })
-    req.flash("success", "You have successfully modified role")
-    res.redirect("/admin/role")
+    const permissions = res.locals.role.permissions
+    if(permissions.includes("role-edit")){
+        // check if the updated name is duplicated
+        await Role.updateOne({_id: req.params.id}, {
+            name: req.body.name.trim(),
+            description: req.body.description.trim()
+        })
+        req.flash("success", "You have successfully modified role")
+        res.redirect("/admin/role")
+    }
+    else{
+        return
+    }
 }
 
 // [DELETE] /admin/role/delete/:id
 module.exports.delete = async (req, res) => {
-    try{
-        const role_id = req.params.id
-        // Count how many accounts currently have this category
-        const account_no = await Account.countDocuments({role: role_id})
-        console.log(account_no)
-        if(account_no > 0){
-            throw new Error("You can’t delete a role that still has users")
+    const permissions = res.locals.role.permissions
+    if(permissions.includes("role-delete")){
+        try{
+            const role_id = req.params.id
+            // Count how many accounts currently have this category
+            const account_no = await Account.countDocuments({role: role_id})
+            console.log(account_no)
+            if(account_no > 0){
+                throw new Error("You can’t delete a role that still has users")
+            }
+            await Role.updateOne({"_id": role_id}, {"deleted": true, "deleteTime": new Date()})
+            req.flash("success", "You have successfully deleted role")
         }
-        await Role.updateOne({"_id": role_id}, {"deleted": true, "deleteTime": new Date()})
-        req.flash("success", "You have successfully deleted role")
+        catch(error){
+            req.flash("error", error.message)
+        }
+        finally{
+            res.redirect('/admin/role')
+        }
     }
-    catch(error){
-        req.flash("error", error.message)
-    }
-    finally{
-        res.redirect('/admin/role')
+    else{
+        return
     }
 }
 
@@ -88,10 +106,15 @@ module.exports.permission_get = async (req, res) => {
 
 // [PATCH] /admin/role/permission
 module.exports.permission_patch = async (req, res) => {
-    const permissions = JSON.parse(req.body.permissions)
-    for(let item of permissions){
-        await Role.updateOne({_id : item.id}, {permissions: item.permissions})
+    if(res.locals.role.permissions.includes("role-permission")){
+        const permissions = JSON.parse(req.body.permissions)
+        for(let item of permissions){
+            await Role.updateOne({_id : item.id}, {permissions: item.permissions})
+        }
+        req.flash("success", "You have successfully updated role permissions")
+        res.redirect("/admin/role/permission")
     }
-    req.flash("success", "You have successfully updated role permissions")
-    res.redirect("/admin/role/permission")
+    else{
+        return
+    }
 }

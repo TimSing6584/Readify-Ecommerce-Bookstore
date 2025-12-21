@@ -46,28 +46,40 @@ module.exports.edit_get = async (req, res) => {
 }
 // [PATCH] /admin/category/edit/:id
 module.exports.edit_patch = async (req, res) => {
-    // check if the updated name is duplicated
-    await Category.updateOne({_id: req.params.id}, {name: req.body.name.trim()})
-    req.flash("success", "You have successfully modified category")
-    res.redirect("/admin/category")
+    const permissions = res.locals.role.permissions
+    if(permissions.includes("products-category-edit")){
+        // check if the updated name is duplicated
+        await Category.updateOne({_id: req.params.id}, {name: req.body.name.trim()})
+        req.flash("success", "You have successfully modified category")
+        res.redirect("/admin/category")
+    }
+    else{
+        return
+    }
 }
 // [DELETE] /admin/category/delete/:id
 module.exports.delete = async (req, res) => {
-    try{
-        const category_id = req.params.id
-        // Count how many products currently have this category
-        const products_no = await Product.countDocuments({category: category_id})
-        if(products_no > 0){
-            throw new Error("You can’t delete a category that still has products")
+    const permissions = res.locals.role.permissions
+    if(permissions.includes("products-category-delete")){
+        try{
+            const category_id = req.params.id
+            // Count how many products currently have this category
+            const products_no = await Product.countDocuments({category: category_id})
+            if(products_no > 0){
+                throw new Error("You can’t delete a category that still has products")
+            }
+            await Category.updateOne({"_id": category_id}, {"deleted": true, "deleteTime": new Date()})
+            req.flash("success", "You have successfully deleted product")
         }
-        await Category.updateOne({"_id": category_id}, {"deleted": true, "deleteTime": new Date()})
-        req.flash("success", "You have successfully deleted product")
+        catch(error){
+            req.flash("error", error.message)
+        }
+        finally{
+            res.redirect('/admin/category')
+        }
     }
-    catch(error){
-        req.flash("error", error.message)
-    }
-    finally{
-        res.redirect('/admin/category')
+    else{
+        return
     }
 }
 
@@ -81,7 +93,13 @@ module.exports.create_get = async (req, res) => {
 }
 // [POST] /admin/category/create
 module.exports.create_post = async (req, res) => {
-    await Category.create(req.body)
-    req.flash("success", "You have successfully created new category")
-    res.redirect(`/admin/category`)
+    const permissions = res.locals.role.permissions
+    if(permissions.includes("products-category-create")){
+        await Category.create(req.body)
+        req.flash("success", "You have successfully created new category")
+        res.redirect(`/admin/category`)
+    }
+    else{
+        return
+    }
 }

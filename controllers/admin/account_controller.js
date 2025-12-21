@@ -21,10 +21,16 @@ module.exports.create_get = async (req, res) => {
 }
 // [POST] /admin/account/create
 module.exports.create_post = async(req, res) => {
-    req.body.password = md5(req.body.password)
-    await Account.create(req.body)
-    req.flash("success", "You have successfully created new account")
-    res.redirect("/admin/account")
+    const permissions = res.locals.role.permissions
+    if(permissions.includes("account-create")){
+        req.body.password = md5(req.body.password)
+        await Account.create(req.body)
+        req.flash("success", "You have successfully created new account")
+        res.redirect("/admin/account")
+    }
+    else{
+        return
+    }
 }
 
 // [GET] /admin/account/edit/:id
@@ -39,30 +45,42 @@ module.exports.edit_get = async (req, res) => {
 }
 // [PATCH] /admin/account/edit/:id
 module.exports.edit_patch = async (req, res) => {
-    // check if the updated name is duplicated
-    if(req.body.password == ""){
-        delete req.body.password
+    const permissions = res.locals.role.permissions
+    if(permissions.includes("account-edit")){
+        // check if the updated name is duplicated
+        if(req.body.password == ""){
+            delete req.body.password
+        }
+        else{
+            req.body.password = md5(req.body.password)
+        }
+        await Account.updateOne({_id: req.params.id}, req.body)
+        req.flash("success", "You have successfully modified account")
+        res.redirect(req.get("referrer"))
     }
     else{
-        req.body.password = md5(req.body.password)
+        return
     }
-    await Account.updateOne({_id: req.params.id}, req.body)
-    req.flash("success", "You have successfully modified account")
-    res.redirect(req.get("referrer"))
 }
 
 
 // [DELETE] /admin/account/delete/:id
 module.exports.delete = async (req, res) => {
-    try{
-        const account_id = req.params.id
-        await Account.updateOne({"_id": account_id}, {"deleted": true, "deleteTime": new Date()})
-        req.flash("success", "You have successfully deleted account")
+    const permissions = res.locals.role.permissions
+    if(permissions.includes("account-delete")){
+        try{
+            const account_id = req.params.id
+            await Account.updateOne({"_id": account_id}, {"deleted": true, "deleteTime": new Date()})
+            req.flash("success", "You have successfully deleted account")
+        }
+        catch(error){
+            req.flash("error", error.message)
+        }
+        finally{
+            res.redirect('/admin/account')
+        }
     }
-    catch(error){
-        req.flash("error", error.message)
-    }
-    finally{
-        res.redirect('/admin/account')
+    else{
+        return
     }
 }
