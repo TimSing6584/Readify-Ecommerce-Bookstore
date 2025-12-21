@@ -16,6 +16,10 @@ const productSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "categories" // model names
     },
+    sold:{
+        type: Number,
+        default: 0
+    },
     deleteTime: Date,
     position: Number,
     description: String,

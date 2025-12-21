@@ -210,24 +210,32 @@ input[type="checkbox"] {
     align-items: start;
 }
 .product-image img {
-    width: 100%;
-    max-height: 200px;
+    width: 70%;
+    height: auto;
+    /* max-height: 200px; */
     border-radius: 12px;
-    object-fit: cover;
+    object-fit: contain;
     box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 .product-info {
     padding-top: 10px;
 }
 .info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
     margin-bottom: 14px;
     font-size: 16px;
 }
 .info-item strong {
-    display: inline-block;
     width: 130px;
+    flex-shrink: 0;
     font-weight: 600;
     color: #333;
+}
+.info-item span {
+    flex: 1;
+    word-break: break-word;
 }
 .description-section {
     margin-top: 25px;

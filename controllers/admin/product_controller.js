@@ -3,7 +3,6 @@ const Category = require("../../models/category_model.js")
 const filterStockHelper = require("../../helpers/filter_stock.js")
 const searchHelper = require("../../helpers/search.js")
 const paginationHelper = require("../../helpers/pagination.js")
-const { ITEMS_PER_PAGE } = require("../../config/pagination.js")
 
 // [GET] /admin/product
 module.exports.index = async (req, res) => {
@@ -29,7 +28,7 @@ module.exports.index = async (req, res) => {
 
     // Pagination
     const total_products = await Product.countDocuments(filter)
-    let pagination = paginationHelper(req, ITEMS_PER_PAGE, total_products) // limit item per page is 4
+    let pagination = paginationHelper(req, 4, total_products) // limit item per page is 4
     // Sort products by criteria
     let sortKey = "position" // by default we sort by ascending position
     let sortValue ="asc"
@@ -142,7 +141,7 @@ module.exports.create_post = async (req, res) => {
         const newProduct = req.body
         // Determine the page to render back after creating
         const totalDocuments = await Product.countDocuments()
-        const renderPage = Math.ceil((totalDocuments + 1) / ITEMS_PER_PAGE)
+        const renderPage = Math.ceil((totalDocuments + 1) / 4)
 
         if(newProduct.position == ""){
             newProduct.position = totalDocuments + 1

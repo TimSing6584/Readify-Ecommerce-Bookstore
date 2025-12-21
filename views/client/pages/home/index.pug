@@ -1,3 +1,78 @@
 extends ../../layouts/default.pug
+block style
+    link(href="/client/css/home_page.css" rel="stylesheet")
 block main
-    h1 Home Page
+    //- HERO / INTRO
+    section.hero
+        img.hero-bg(src="/client/images/background.jpg" alt="Books background")
+        .hero-overlay
+        .hero-content
+            h1 Discover Your Next Favorite Book
+            p Thoughtfully curated books for curious minds.
+            a.btn-primary(href="/product") Explore More Books
+
+    //- NEWEST BOOKS
+    section.section
+        .container
+            h2.section-title New Arrivals
+            .book-slider
+                .book-track
+                    each product in newest_products
+                        .book-card
+                            img(src=product.images alt=product.title)
+                            .book-info
+                                a(href=`product/detail/${product.slug}`)
+                                    h3= product.title
+                                span.price $#{product.price}
+
+    //- WHY US
+    section.section.soft-bg
+        .container
+            h2.section-title Why Readify?
+            .why-grid
+                .why-card
+                    .icon-circle
+                        span.icon 🚚
+                    h3 Free Shipping
+                    p Fast delivery straight to your door, always free.
+                .why-card
+                    .icon-circle
+                        span.icon 🔄
+                    h3 Easy Returns
+                    p Free 30-day return policy.
+                .why-card
+                    .icon-circle
+                        span.icon 💬
+                    h3 24/7 Support
+                    p Our team is here to help anytime, day or night.
+
+    //- SUPPORT
+    section.section.support-section
+        .container
+            h2.section-title We're Here to Help
+            .support-grid
+                .support-card
+                    .support-header
+                        h3 How Buying Works
+                    p Watch a quick guide on how to purchase books.
+                    .video-wrapper
+                        iframe(src='https://www.youtube.com/embed/dVx6cHFqXs8?si=utGV_D2XfGPM0LaT' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share' referrerpolicy='strict-origin-when-cross-origin' allowfullscreen='')
+
+                .support-card
+                    .support-header
+                        h3 Visit Our Store
+                    p Find us or contact us anytime.
+                    .video-wrapper
+                        iframe(src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14898.30207344561!2d105.44905399664192!3d21.00964603705259!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31345d0035f5b3ed%3A0x1fa339cfa637fe47!2zc-G7kSAxMCDEkGFuIFBoxrDhu6NuZw!5e0!3m2!1svi!2s!4v1766335568309!5m2!1svi!2s' width='600' height='450' style='border:0;' allowfullscreen='' loading='lazy' referrerpolicy='no-referrer-when-downgrade')
+
+
+    //- CTA
+    section.cta
+        .cta-content
+            h2 Start your reading journey today
+            p Thousands of books waiting to inspire you
+            a.btn-cta(href="/product") 
+                span Shop Now
+                span.arrow →
+
+block script

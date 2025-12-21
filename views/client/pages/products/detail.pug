@@ -1,4 +1,6 @@
 extends ../../layouts/default.pug
+block style
+    link(href="/client/css/product.css" rel="stylesheet")
 block main
     .product-detail
         .product-grid
@@ -22,6 +24,9 @@ block main
                 .info-item
                     strong Stock:
                     span #{product.stock}
+                .info-item
+                    strong Sold:
+                    span #{product.sold}
         if product.description
             .description-section
                 strong Description:

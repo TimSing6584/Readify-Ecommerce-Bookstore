@@ -1,6 +1,8 @@
 extends ../../layouts/default.pug
 include ../../mixins/box_head.pug
 //- include alert later
+block style
+    link(href="/client/css/product.css" rel="stylesheet")
 block main
     .container.my-3
         .row
@@ -20,3 +22,4 @@ block main
                             if item.discountPercentage != 0
                                 .inner-price-old #{item.price}$
                                 .inner-discount -#{item.discountPercentage}%
+block script
