@@ -18,7 +18,7 @@ module.exports.detail = async (req, res) => {
     // ADD pagination later
     try{
         const product_slug = req.params.slug
-        const product = await Product.findOne({slug: product_slug})
+        const product = await Product.findOne({slug: product_slug}).populate("category")
         res.render("client/pages/products/detail.pug", {
             titlePage: product.title,
             product: product

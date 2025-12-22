@@ -27,6 +27,9 @@ block main
                 .info-item
                     strong Sold:
                     span #{product.sold}
+                .info-item
+                    strong Category:
+                    span #{product.category.name}
         if product.description
             .description-section
                 strong Description:
