@@ -17,20 +17,20 @@ block main
             h2.section-title New Arrivals
             .book-slider
                 .book-track
-                    each product in newest_products
-                        .book-card
-                            img(src=product.images alt=product.title)
-                            .book-info
-                                a(href=`product/detail/${product.slug}`)
-                                    h3= product.title
-                                span.price $#{product.price}
-                    each product in newest_products
-                        .book-card
-                            img(src=product.images alt=product.title)
-                            .book-info
-                                a(href=`product/detail/${product.slug}`)
-                                    h3= product.title
-                                span.price $#{product.price}
+                    - for (let i = 0; i < 2; i++)
+                        each product in newest_products
+                            .book-card
+                                img(src=product.images alt=product.title)
+                                .book-info
+                                    a(href=`product/detail/${product.slug}`)
+                                        h3= product.title
+                                    if product.discountPercentage != 0
+                                        .price #{(((100 - product.discountPercentage) * product.price) / 100).toFixed(0)}$
+                                        .price-details
+                                            span.old-price #{product.price}$
+                                            span.discount -#{product.discountPercentage}%
+                                    else
+                                        .price #{product.price}$
 
     //- WHY US
     section.section.soft-bg

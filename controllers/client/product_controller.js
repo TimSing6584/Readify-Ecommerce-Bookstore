@@ -1,15 +1,33 @@
 const Product = require("../../models/product_model.js")
-
+const Category = require("../../models/category_model.js")
 // [GET] /product
 module.exports.index = async (req, res) => {
-    const render_product = await Product.find({
+    let query = {
         deleted: false,
-        stock: { $gt: 0 },
-
-    }).sort({position: -1}) // sort the product by position to display (display newest first)
+        stock: { $gt: 0 }, // only display products that are in stock
+    }
+    if(req.query.category){
+        query.category = {$in: req.query.category.split("_")}
+    }
+    if(req.query.price){
+        const priceRanges = req.query.price.split("_")
+        query.$or = priceRanges.map(range => {
+            const [min, max] = range.split("-").map(Number)
+            return {
+                price: {
+                    $gte: min,
+                    $lte: max
+                }
+            }
+        })
+    }
+    const render_product = await Product.find(query)
+                                        .sort({position: "desc"}) // sort the product by position to display (display newest first)
+    const categories = await Category.find({deleted: false})
     res.render("client/pages/products/index.pug", {
         titlePage: "Product Page",
-        products: render_product
+        products: render_product,
+        categories: categories
     })
 }
 

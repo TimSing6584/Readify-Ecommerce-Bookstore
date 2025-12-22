@@ -135,9 +135,34 @@
     margin-bottom: 6px;
 }
 
-.price {
-    color: #6366f1;
+.price{
+    font-size: 18px;
     font-weight: 600;
+    color: #6366f1
+}
+
+.price-details {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.old-price{
+    font-size: 18px;
+    font-weight: 600;
+    color: red;
+    text-decoration: line-through;
+}
+.discount{
+    font-size: 14px;
+    font-weight: 600;
+    background-color: red;
+    color: white;
+    width: 40%;
+    padding: 3px 10px;
+    display: inline-block;
+    border-radius: 8px;
 }
 
 @keyframes slide {
