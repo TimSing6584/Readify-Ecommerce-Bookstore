@@ -38,11 +38,11 @@ block main
                                     value=product.quantity
                                     min="1"
                                     max=product.stock
-                                    product-id=product.id
+                                    product-id=product._id
                                 )
                             td.fw-bold $#{product.totalPrice}
                             td
-                                a.cart-delete-btn(href=`/cart/delete/${product.id}`) Delete
+                                a.cart-delete-btn(href=`/cart/delete/${product._id}`) Delete
 
         .cart-summary
             .cart-total
@@ -50,6 +50,5 @@ block main
                 span.cart-total-amount $#{totalPrice}
             .text-end
                 a.cart-payment-btn(href="/checkout") Proceed to Payment
-
 block script
-    script(src="/client/js/alert.js")
+    script(src="/client/js/cart.js")

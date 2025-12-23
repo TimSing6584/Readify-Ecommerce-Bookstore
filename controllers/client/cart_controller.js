@@ -47,3 +47,33 @@ module.exports.add = async (req,res) => {
     req.flash("success", "Added product to cart")
     res.redirect(req.get('referrer'))
 }
+// [GET] /cart/delete/:product_id
+module.exports.delete = async (req,res) => {
+    const product_id = req.params.product_id
+    const cart_id = req.cookies.cartId
+    await Cart.updateOne({_id: cart_id}, {
+        $pull: {products: {product_id: product_id}}
+    })
+
+    req.flash("success", "You have successfully deleted product")
+    res.redirect(req.get("referrer"))
+}
+// [GET] /cart/update_quantity/:product_id/:quantity
+module.exports.update = async (req, res) => {
+    const { product_id, quantity } = req.params
+    const cart_id = req.cookies.cartId
+
+    await Cart.updateOne(
+        {
+            _id: cart_id,
+            "products.product_id": product_id
+        },
+        {
+            $set: {
+                "products.$.quantity": quantity
+            }
+        }
+    )
+
+    res.redirect(req.get("referrer"))
+}
