@@ -1,22 +1,13 @@
 const Cart = require("../../models/cart_model.js")
 const Product = require("../../models/product_model.js")
+const cart_info_helper = require("../../helpers/get_cart_info.js")
 // [GET] /cart
 module.exports.index = async (req, res) => {
-    let products = []
-    let totalPrice = 0
-    for(let obj of res.locals.cart.products){
-        let product = await Product.findById(obj.product_id).lean()
-        product.priceNew = (((100 - product.discountPercentage) * product.price) / 100).toFixed(0)
-        product.totalPrice = product.priceNew * obj.quantity
-        product.quantity = obj.quantity
-        totalPrice += product.totalPrice
-
-        products.push(product)
-    }
-    res.locals.totalPrice = totalPrice
+    const cartInfo = await cart_info_helper(res.locals.cart.products)
+    res.locals.totalPrice = cartInfo.totalPrice
     res.render("client/pages/cart/index.pug", {
         titlePage: "Your Cart",
-        products: products
+        products: cartInfo.products
     })
 }
 // [POST] /cart/add/:product_id

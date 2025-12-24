@@ -1,8 +1,11 @@
 extends ../../layouts/default.pug
+include ../../../utils/alert.pug
 include ../../mixins/box_head.pug
 block style
     link(href="/client/css/checkout.css" rel="stylesheet")
 block main
+    +alert-success("3000")
+    +alert-error("3000")
     .container.my-3
         .row
             .col-12

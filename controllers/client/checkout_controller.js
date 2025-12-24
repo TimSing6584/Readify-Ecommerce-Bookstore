@@ -1,22 +1,40 @@
 const Cart = require("../../models/cart_model.js")
 const Product = require("../../models/product_model.js")
 const Order = require("../../models/order_model.js")
+const cart_info_helper = require("../../helpers/get_cart_info.js")
 // [GET] /checkout
 module.exports.index = async (req,res) => {
-    console.log(res.locals.totalPrice)
-    let products = []
-    let totalPrice = 0
-    for(let obj of res.locals.cart.products){
-        let product = await Product.findById(obj.product_id).lean()
-        product.priceNew = (((100 - product.discountPercentage) * product.price) / 100).toFixed(0)
-        product.totalPrice = product.priceNew * obj.quantity
-        product.quantity = obj.quantity
-        totalPrice += product.totalPrice
-        products.push(product)
-    }
-    res.locals.totalPrice = totalPrice
+    const cartInfo = await cart_info_helper(res.locals.cart.products)
+    res.locals.totalPrice = cartInfo.totalPrice
     res.render("client/pages/checkout/index.pug", {
         titlePage: "Check Out",
-        products: products
+        products: cartInfo.products
+    })
+}
+// [POST] /checkout/order
+module.exports.order = async (req,res) => {
+    const userInfo = req.body
+    const cartInfo = await cart_info_helper(res.locals.cart.products)
+    const order = new Order({
+        cartId: req.cookies.cartId,
+        userInfo: userInfo,
+        products: cartInfo.products,
+        totalPrice: cartInfo.totalPrice
+    })
+    await order.save()
+    res.redirect(`/checkout/success/${order._id}`)
+}
+// [GET] /checkout/success/:order_id
+module.exports.success = async (req,res) => {
+    const order = await Order.findById(req.params.order_id)
+    const { cartId, userInfo, products, totalPrice } = order
+    await Cart.updateOne({_id: cartId}, {
+        products: []
+    })
+    res.render("client/pages/checkout/success.pug", {
+        titlePage: "Finished Order",
+        userInfo: userInfo,
+        products: products,
+        totalPrice: totalPrice
     })
 }

@@ -1,0 +1,61 @@
+extends ../../layouts/default.pug
+block style
+    link(href="/client/css/checkout.css" rel="stylesheet")
+block main
+    .success-container
+        //- Success Animation
+        .success-animation
+            .success-checkmark
+                .success-ring
+                .check-icon
+                    span.icon-line.line-tip
+                    span.icon-line.line-long
+            
+            h1.success-title Order Placed Successfully!
+            p.success-subtitle Your order is being processed. Our staff will call you shortly to confirm your order.
+        //- Customer Information
+        .success-info-card
+            h3.info-title Order Information
+            .info-grid
+                .info-item
+                    .info-label Full Name
+                    .info-value= userInfo.fullname
+                .info-item
+                    .info-label Phone Number
+                    .info-value= userInfo.phone
+                .info-item
+                    .info-label Delivery Address
+                    .info-value= userInfo.address
+
+        //- Order Details Table
+        .success-order-card
+            h3.order-title 📋 Order Details
+            .table-wrapper
+                table.success-table
+                    thead
+                        tr
+                            th No.
+                            th Product
+                            th Price
+                            th Quantity
+                            th Total
+                    tbody
+                        each product, index in products
+                            tr
+                                td #{index + 1}
+                                td.product-name= product.title
+                                td $#{product.priceNew}
+                                td ×#{product.quantity}
+                                td.total-price $#{product.totalPrice}
+                    tfoot
+                        tr.total-row
+                            td(colspan="4") Grand Total
+                            td.grand-total $#{totalPrice}
+
+        //- Action Buttons
+        .success-actions
+            a.btn-primary(href="/product") Continue Shopping
+            a.btn-secondary(href="/") Back to Home
+
+block script
+    script(src="https://kit.fontawesome.com/15f24667ff.js" crossorigin="anonymous")

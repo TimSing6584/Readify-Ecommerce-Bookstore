@@ -7,14 +7,11 @@ const orderSchema = new Schema({
         phone: String,
         address: String
     },
-    products: [
-        {
-            product_id: String,
-            price: Number,
-            discountPercentage: Number,
-            quantity: Number
-        }
-    ],
+    products: {
+        type: Array,
+        default: []
+    },
+    totalPrice: Number,
     deleted: {
         type: Boolean,
         default: false

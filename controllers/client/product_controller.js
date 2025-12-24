@@ -28,7 +28,10 @@ module.exports.index = async (req, res) => {
         query.title = {$regex: last_search_word, $options: "i"}
     }
     const render_product = await Product.find(query)
-                                        .sort({position: "desc"}) // sort the product by position to display (display newest first)
+                                        .sort({
+                                            discountPercentage: "desc",
+                                            position: "desc"
+                                        }) // sort the product by position to display (display newest first)
     const categories = await Category.find({deleted: false})
     res.render("client/pages/products/index.pug", {
         titlePage: "Product Page",
