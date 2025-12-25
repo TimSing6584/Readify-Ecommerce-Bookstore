@@ -22,6 +22,20 @@ module.exports.order = async (req,res) => {
         totalPrice: cartInfo.totalPrice
     })
     await order.save()
+    // Decrement stock and Increment sold of each product
+    for(const p of res.locals.cart.products) {
+        await Product.updateOne(
+            {_id: p.product_id},
+            {
+                $inc: {
+                    stock: -p.quantity, // decrease stock
+                    sold: p.quantity    // increase sold
+                }
+            }
+        )
+    }
+
+
     res.redirect(`/checkout/success/${order._id}`)
 }
 // [GET] /checkout/success/:order_id
