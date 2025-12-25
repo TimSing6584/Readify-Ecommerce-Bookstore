@@ -17,15 +17,15 @@ app.use(bodyParser.urlencoded())
 // parse application/json
 app.use(bodyParser.json())
 // import routes
-const client_route = require("./routes/client/index_route.js")
-const admin_route = require("./routes/admin/index_route.js")
+const client_route = require("./src/routes/client/index_route.js")
+const admin_route = require("./src/routes/admin/index_route.js")
 const port = process.env.PORT
 // import database
-const database = require("./config/database.js")
+const database = require("./src/config/database.js")
 // embed static files
-app.use(express.static(`${__dirname}/public`))
+app.use(express.static(`${__dirname}/src/public`))
 // set up the template engine
-app.set("views", `${__dirname}/views`)
+app.set("views", `${__dirname}/src/views`)
 app.set("view engine", "pug")
 
 // set up flash():
