@@ -3,8 +3,10 @@ const homeRoutes = require("./home_route.js")
 const cartRoutes = require("./cart_route.js")
 const checkoutRoutes = require("./checkout_route.js")
 const authRoutes = require("./auth_route.js")
+const myAccountRoutes = require("./my_account_route.js")
 const cart_middleware = require("../../middleware/client/cart_middleware.js")
 const attach_user_middleware = require("../../middleware/client/attach_user_middleware.js")
+const auth_middleware = require("../../middleware/client/auth_middleware.js")
 module.exports = (app) => {
     app.use(cart_middleware.cartId)
     app.use(attach_user_middleware.attachUser)
@@ -14,4 +16,5 @@ module.exports = (app) => {
     app.use("/cart", cartRoutes)
     app.use("/checkout", checkoutRoutes)
     app.use("/auth", authRoutes)
+    app.use("/my_account", auth_middleware.requireAuth, myAccountRoutes)
 }

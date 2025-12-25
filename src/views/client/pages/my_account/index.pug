@@ -1,18 +1,21 @@
 extends ../../layouts/default.pug
 include ../../../utils/alert.pug
 block style
-    link(href="/admin/css/my_account.css" rel="stylesheet")
+    link(href="/client/css/my_account.css" rel="stylesheet")
 block main
-    +alert-success("5000")
-    +alert-error("5000")
+    +alert-success("3000")
+    +alert-error("3000")
 
     form#create-form.my-account-form(
-        action=`/admin/my_account/edit/${account._id}?_method=PATCH`
+        action=`/my_account/edit/${user._id}?_method=PATCH`
         enctype="multipart/form-data"
         method="POST"
     )
-        h2 Edit My Account
-
+        h2 My Account
+            a.btn.btn-primary(
+                href="/my_account/history"
+                order-history-link
+            ) Order History
         .row.g-3
             .col-md-6
                 label(for="fullname") Full Name
@@ -21,7 +24,7 @@ block main
                     id="fullname"
                     name="fullname"
                     placeholder="* Required"
-                    value=account.fullname
+                    value=user.fullname
                     required
                 )
 
@@ -32,7 +35,7 @@ block main
                     id="email"
                     name="email"
                     placeholder="* Required"
-                    value=account.email
+                    value=user.email
                     required
                 )
 
@@ -51,9 +54,8 @@ block main
                     type="tel"
                     id="phone"
                     name="phone"
-                    placeholder="* Required"
-                    value=account.phone
-                    required
+                    placeholder="Your phone number"
+                    value=user.phone ? user.phone : ""
                 )
             .col-12
                 label(for="avatar") Avatar
@@ -65,21 +67,13 @@ block main
                     accept="image/*"
                     upload-image-input
                 )
-                if account.avatar
-                    img(src=account.avatar upload-image-preview)
-            .col-12
-                label.d-nonez(for="role") Role
-                input.d-none(
-                    type="text"
-                    id="role"
-                    name="role"
-                    value="role"
-                )
+                if user.avatar
+                    img(src=user.avatar upload-image-preview)
 
         .mt-4.text-end
             a.btn-reset.text-decoration-none(
-                href=`/admin`
+                href=`/`
                 cancel-create-account
             ) Cancel
-            button.btn-submit(type="submit" submit-create-account) Modify Account
+            button.btn-submit(type="submit" submit-create-account) Update
 block script

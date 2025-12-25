@@ -1,4 +1,4 @@
-// This validator is re-used for both CREATE + EDIT role
+// This validator is re-used for both CREATE + EDIT account
 const Account = require("../../models/account_model.js")
 module.exports.create_account = async (req, res, next) => {
     // Make sure account required fields is not empty
@@ -13,7 +13,7 @@ module.exports.create_account = async (req, res, next) => {
         if(empty){
             throw new Error("Please fill in required fields")
         }
-        // Check if role already exists
+        // Check if email/phone already exists
         const query = {
             $or: [
                 { phone: req.body.phone },

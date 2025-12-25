@@ -37,6 +37,19 @@ main {
 }
 /* End alert */
 
+
+/* Preview image */
+img[upload-image-preview]:not([src=""]) {
+    width: 150px;
+    height: 150px;
+    margin-top: 15px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd
+}
+/* End preview image */
+
+
 /* Header */
 
 .header{
@@ -260,6 +273,12 @@ main {
 .header .inner-menu a[href="/my_account"]:hover .fa-circle-user {
     color: #8b5cf6;
     transform: scale(1.1);
+}
+
+.header img[user-avatar]{
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
 }
 /* End Header */
 
