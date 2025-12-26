@@ -1,8 +1,73 @@
 extends ../../layouts/default.pug
 block style
-    link(href="/admin/css/product.css" rel="stylesheet")
+    link(href="/admin/css/dashboard.css" rel="stylesheet")
+
 block main
-    h1 DashBoard
-    div #{role.permissions}
-    div #{account}
+    .dashboard-container
+        .dashboard-header
+            .user-info-card
+                if account.avatar
+                    img.user-avatar(src=account.avatar alt="Avatar")
+                .user-details
+                    h2.user-name= account.fullname
+                    p.user-email= account.email
+                    p.user-phone= account.phone
+                    .user-role
+                        span.role-badge= role.name
+
+
+        h2.section-title System Overview
+        .stats-grid
+            .stat-card.stat-users
+                //- .stat-icon 👥
+                .stat-content
+                    .stat-label Total Users
+                    .stat-value= general.countUser
+
+            .stat-card.stat-staff
+                //- .stat-icon 👔
+                .stat-content
+                    .stat-label Staff Members
+                    .stat-value= general.countStaff
+
+            .stat-card.stat-products
+                //- .stat-icon 📚
+                .stat-content
+                    .stat-label Products
+                    .stat-value= general.countProducts
+            .stat-card.stat-sold
+                //- .stat-icon 📚
+                .stat-content
+                    .stat-label Sold
+                    .stat-value= general.sold
+
+            .stat-card.stat-categories
+                //- .stat-icon 📂
+                .stat-content
+                    .stat-label Categories
+                    .stat-value= general.countCategories
+
+            .stat-card.stat-roles
+                //- .stat-icon 🔑
+                .stat-content
+                    .stat-label Roles
+                    .stat-value= general.countRole
+        h2.section-title Order Management
+        .orders-grid
+            .order-card.order-pending
+                .order-icon ⏳
+                .order-content
+                    .order-label Pending Orders
+                    .order-value= general.order.pending
+            .order-card.order-confirmed
+                .order-icon ✅
+                .order-content
+                    .order-label Confirmed Orders
+                    .order-value= general.order.confirmed
+            .order-card.order-delivered
+                .order-icon 🚚
+                .order-content
+                    .order-label Delivered Orders
+                    .order-value= general.order.delivered
+
 block script
