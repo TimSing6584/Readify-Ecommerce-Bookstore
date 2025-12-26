@@ -40,6 +40,11 @@ block main
                             td
                                 if role.permissions.includes("products-category-edit")
                                     a(
+                                        class="btn btn-secondary btn-sm"
+                                        href=`/admin/category/detail/${item.id}`
+                                        detail-category
+                                    ) Products
+                                    a(
                                         class="btn btn-warning btn-sm"
                                         href=`/admin/category/edit/${item.id}`
                                         modify-category

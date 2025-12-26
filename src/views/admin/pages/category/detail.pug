@@ -1,0 +1,36 @@
+extends ../../layouts/default.pug
+
+block style
+    link(href="/admin/css/category.css" rel="stylesheet")
+
+block main
+    if role.permissions.includes("products-category-view")
+        h1 Category's Products
+
+        .table-wrapper
+            table.category-detail-table
+                thead
+                    tr
+                        th No.
+                        th Image
+                        th Title
+                        th Price
+                        th Discount
+                        th Stock
+                        th Sold
+                tbody
+                    each product, index in products
+                        tr
+                            td #{index + 1}
+                            td
+                                img.category-product-image(src=product.images)
+                            td #{product.title}
+                            td #{product.price}
+                            td #{product.discountPercentage}
+                            td #{product.stock}
+                            td #{product.sold}
+        a.btn.btn-secondary(href="/admin/category" back-category) Back
+    else
+        h1 Oops !!! You need authorization to access
+
+block script

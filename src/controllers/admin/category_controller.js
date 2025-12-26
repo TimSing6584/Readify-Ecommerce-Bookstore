@@ -103,3 +103,20 @@ module.exports.create_post = async (req, res) => {
         return
     }
 }
+// [GET] /admin/category/detail/:id
+module.exports.detail = async (req,res) => {
+    const permissions = res.locals.role.permissions
+    if(permissions.includes("products-category-view")){
+        const products = await Product.find({
+            deleted: false,
+            category: req.params.id
+        })
+        res.render("admin/pages/category/detail.pug", {
+            titlePage: "Products of Category",
+            products: products
+        })
+    }
+    else{
+        return
+    }
+}

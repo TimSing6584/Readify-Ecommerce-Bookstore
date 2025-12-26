@@ -4,6 +4,7 @@ module.exports.index = async (req, res) => {
     const permissions = res.locals.role.permissions
     if(permissions.includes("user-view")){
         const users = await User.find({deleted: false}).select("-password")
+                                .sort({createdAt: "desc"})
         res.render("admin/pages/user/index.pug", {
             titlePage: "User Manangement",
             users: users

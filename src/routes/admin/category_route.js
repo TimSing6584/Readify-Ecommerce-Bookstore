@@ -16,4 +16,5 @@ router.post(
     create_category_validator.create_category,
     controller.create_post
 )
+router.get("/detail/:id", controller.detail)
 module.exports = router
