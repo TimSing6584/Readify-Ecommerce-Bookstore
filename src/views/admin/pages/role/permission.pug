@@ -79,7 +79,7 @@ block main
                 //- --------------------------------------------
                 tr
                     td(colspan=records.length + 1)
-                        b Accounts
+                        b Staff Accounts
                 tr(data-name="account-view")
                     td View
                     +role_checkbox(records, "account-view")
@@ -92,6 +92,26 @@ block main
                 tr(data-name="account-delete")
                     td Delete
                     +role_checkbox(records, "account-delete")
+                //- --------------------------------------------
+                tr
+                    td(colspan=records.length + 1)
+                        b User Accounts
+                tr(data-name="user-view")
+                    td View
+                    +role_checkbox(records, "user-view")
+                tr(data-name="user-delete")
+                    td Delete
+                    +role_checkbox(records, "user-delete")
+                //- --------------------------------------------
+                tr
+                    td(colspan=records.length + 1)
+                        b Order
+                tr(data-name="order-view")
+                    td View
+                    +role_checkbox(records, "order-view")
+                tr(data-name="user-edit")
+                    td Edit
+                    +role_checkbox(records, "user-edit")
         form(
             class="d-none"
             id="form-change-permissions"

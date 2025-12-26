@@ -9,6 +9,9 @@
             if role.permissions.includes("products-category-view")
                 li
                     a(href="/admin/category") Product Category
+            if role.permissions.includes("order-view")
+                li
+                    a(href="/admin/order") Orders
             if role.permissions.includes("role-view")
                 li
                     a(href="/admin/role") Role Management
@@ -18,3 +21,6 @@
             if role.permissions.includes("account-view")
                 li
                     a(href="/admin/account") Staff Accounts Management
+            if role.permissions.includes("user-view")
+                li
+                    a(href="/admin/user") User Accounts Management

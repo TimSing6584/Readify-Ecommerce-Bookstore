@@ -62,7 +62,7 @@ block main
                     each role in roles
                         option(
                             value=role._id
-                            selected=(role.category && role._id.toString() === account.role._id.toString())
+                            selected=(role._id.toString() === account.role._id.toString())
                         )= role.name
             .col-12
                 label(for="avatar") Avatar

@@ -1,6 +1,6 @@
 extends ../../layouts/default.pug
 include ../../mixins/box_head.pug
-
+include ../../../utils/pagination.pug
 block style
     link(href="/client/css/product.css" rel="stylesheet")
 block main
@@ -78,7 +78,8 @@ block main
                                             .inner-price-new #{item.price}$
                 else
                     h3 No products found
-
+            +pagination(pagination)
 block script
     script(src="https://kit.fontawesome.com/15f24667ff.js" crossorigin="anonymous")
     script(src="/client/js/product.js")
+    script(src="/utils/pagination.js")

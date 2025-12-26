@@ -1,6 +1,7 @@
 const Product = require("../../models/product_model.js")
 const Category = require("../../models/category_model.js")
 const searchHelper = require("../../helpers/search.js")
+const paginationHelper = require("../../helpers/pagination.js")
 // [GET] /product
 module.exports.index = async (req, res) => {
     let query = {
@@ -27,7 +28,12 @@ module.exports.index = async (req, res) => {
     if(last_search_word){
         query.title = {$regex: last_search_word, $options: "i"}
     }
+    // Pagination
+    const total_products = await Product.countDocuments(query)
+    let pagination = paginationHelper(req, 10, total_products) // limit item per page is 4
     const render_product = await Product.find(query)
+                                        .limit(pagination.limitItems)
+                                        .skip((pagination.currentPage - 1) * pagination.limitItems)
                                         .sort({
                                             discountPercentage: "desc",
                                             position: "desc"
@@ -38,7 +44,8 @@ module.exports.index = async (req, res) => {
         products: render_product,
         categories: categories,
         last_search_word: last_search_word,
-        show_search: true
+        show_search: true,
+        pagination: pagination
     })
 }
 

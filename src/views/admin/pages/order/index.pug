@@ -1,0 +1,50 @@
+extends ../../layouts/default.pug
+include ../../../utils/alert.pug
+block style
+    link(href="/admin/css/order.css" rel="stylesheet")
+block main
+    if role.permissions.includes("order-view")
+        +alert-success("3000")
+        h1 Order Management
+        .order-header
+
+            select.order-filter
+                option(value="") All
+                option(value="pending") Pending
+                option(value="confirmed") Confirmed
+                option(value="delivered") Delivered
+        form(method="POST" change-order-status)
+            table.order-table
+                thead
+                    tr
+                        th No.
+                        th Image
+                        th Title
+                        th Date
+                        th Total
+                        th Status
+                        th View
+                tbody
+                    each order, index in orders
+                        tr
+                            td #{index + 1}
+                            td
+                                img(
+                                    src=(order.products)[0].images
+                                    alt=(order.products)[0].title
+                                )
+                            td #{(order.products)[0].title}#{order.products.length > 1 ? ' ...' : ''}
+                            td
+                                p= new Date(order.createdAt).toLocaleDateString("en-SG", {timeZone: "Asia/Singapore"})
+                            td $#{order.totalPrice}
+                            td
+                                    select.order-status(order-id=order._id name="status")
+                                        option(value="pending" selected=order.status === "pending") Pending
+                                        option(value="confirmed" selected=order.status === "confirmed") Confirmed
+                                        option(value="delivered" selected=order.status === "delivered") Delivered
+                            td
+                                a.btn.btn-secondary(href=`/admin/order/detail/${order._id}`) Details
+    else
+        h3 Oops! You don't have authorization
+block script
+    script(src="/admin/js/order.js")

@@ -495,3 +495,15 @@ a[back-button]{
     font-size: 18px;
 }
 /* End detail product */
+
+
+/* Center pagination */
+nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.pagination {
+    margin-bottom: 0;
+}
