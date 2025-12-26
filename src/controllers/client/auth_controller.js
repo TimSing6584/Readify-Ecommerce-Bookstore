@@ -27,6 +27,11 @@ module.exports.register = async (req,res) => {
         req.flash("error", "Email has already existed")
     }
     else{
+        if(req.body.password.length < 8){
+            req.flash("error", "Please use a password that is at least 8 characters long")
+            res.redirect(req.get('referrer'))
+            return
+        }
         req.body.password = md5(req.body.password)
         await User.create(req.body)
         req.flash("success", "You have successfully created account")

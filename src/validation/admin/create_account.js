@@ -13,6 +13,9 @@ module.exports.create_account = async (req, res, next) => {
         if(empty){
             throw new Error("Please fill in required fields")
         }
+        if(!req.params.id && req.body.password.length < 8){
+            throw new Error("Please use a password that is at least 8 characters long")
+        }
         // Check if email/phone already exists
         const query = {
             $or: [
