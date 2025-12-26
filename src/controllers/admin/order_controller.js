@@ -38,7 +38,14 @@ module.exports.detail = async (req,res) => {
 
 // [POST] /admin/order/edit/:id/:status
 module.exports.edit = async (req,res) => {
-    await Order.updateOne({_id: req.params.id}, {status: req.params.status})
-    req.flash("success", "Updated order status")
-    res.redirect("/admin/order")
+    const permissions = res.locals.role.permissions
+    if(permissions.includes("order-edit")){
+        await Order.updateOne({_id: req.params.id}, {status: req.params.status})
+        req.flash("success", "Updated order status")
+        res.redirect("/admin/order")
+    }
+    else{
+        req.flash("error", "You can't modify the status")
+        res.redirect("/admin/order")
+    }
 }

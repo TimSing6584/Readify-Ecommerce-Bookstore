@@ -6,8 +6,8 @@ if(deleteButtons){
         const deleteForm = document.querySelector("form#delete-item")
         button.addEventListener("click", () => {
             if(confirm("Are you sure to delete?")){
-                const product_id = button.getAttribute("data-id")
-                deleteForm.setAttribute("action", deleteForm.getAttribute("path") + `/${product_id}?_method=DELETE`)
+                const item_id = button.getAttribute("data-id")
+                deleteForm.setAttribute("action", deleteForm.getAttribute("path") + `/${item_id}?_method=DELETE`)
                 deleteForm.submit()
             }
         })

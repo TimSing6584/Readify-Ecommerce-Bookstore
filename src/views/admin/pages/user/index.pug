@@ -1,0 +1,45 @@
+extends ../../layouts/default.pug
+include ../../../utils/alert.pug
+include ../../mixins/delete_item.pug
+
+block style
+    link(href="/admin/css/user.css" rel="stylesheet")
+block main
+    +alert-success("3000")
+    +alert-error("3000")
+    if role.permissions.includes("user-view")
+        table.user-table
+            thead
+                th No
+                th Image
+                th Full Name
+                th Email
+                th Phone
+                th Created Time
+                th Action
+            tbody
+                each user, index in users
+                    td #{index + 1}
+                    if user.avatar
+                        td
+                            img.user-avatar(src=user.avatar width="100px" height="100px")
+                    else
+                        td Nil
+                    td #{user.fullname}
+                    td #{user.email}
+                    if user.phone
+                        td #{user.phone}
+                    else
+                        td Nil
+                    td
+                        p= new Date(user.createdAt).toLocaleDateString("en-SG", {timeZone: "Asia/Singapore"})
+                    td.user-actions
+                        button(
+                            class="btn btn-danger btn-sm delete"
+                            data-id=user._id
+                            delete-user
+                        ) Delete
+        +delete_item("user")
+    else
+        h1 Oops !!! You need authorization to access
+block script
