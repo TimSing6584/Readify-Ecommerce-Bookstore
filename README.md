@@ -13,6 +13,7 @@
 ## Overview
 
 **Readify** is an **SSR (Server-Side Rendering) online bookstore** built with a clear **MVC-style structure**, featuring both **client-facing pages** and a **admin system for management**.
+
 Client Page:
 
 <img width="947" height="434" alt="image" src="https://github.com/user-attachments/assets/d830e962-208f-49de-843b-7e62548a919e" />
